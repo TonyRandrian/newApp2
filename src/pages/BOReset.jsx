@@ -4,6 +4,7 @@ import {deleteAll} from "../backend/services/Reset.js";
 
 function BOReset() {
     const [selected, setSelected] = useState(new Set());
+    const [isDeleting, setIsDeleting] = useState(false);
     const orderByValue = useMemo(() => {
         const orderMap = new Map();
         RESOURCES_TO_RESET.forEach((r) => orderMap.set(r.value, {
@@ -39,8 +40,18 @@ function BOReset() {
         }
     }
 
-    const doDelete = () => {
-        deleteAll(selected);
+    const doDelete = async () => {
+        if (selected.size === 0) return;
+
+        setIsDeleting(true);
+        try {
+            await deleteAll(selected);
+            setSelected(new Set());
+        } catch (error) {
+            console.error("Erreur lors de la suppression des données:", error);
+        } finally {
+            setIsDeleting(false);
+        }
     }
 
     return (
@@ -61,6 +72,8 @@ function BOReset() {
                     cette action supprime les données de manière irréversible sur l'environnement courant.
                 </div>
 
+                {isDeleting && <p className="bo-status bo-status--loading">Suppression en cours…</p>}
+
                 <div className="bo-checklist">
                     <div className="bo-checklist__list">
                         {[...orderByValue.values()].map((resource) => (
@@ -70,6 +83,7 @@ function BOReset() {
                                     type="checkbox"
                                     checked={selected.has(resource.value)}
                                     onChange={() => toggleItem(resource.value)}
+                                    disabled={isDeleting}
                                 />
                                 <label
                                     className="bo-checklist__label"
@@ -89,11 +103,11 @@ function BOReset() {
                             <strong>{RESOURCES_TO_RESET.length}</strong>
                         </span>
                         <div className="bo-checklist__actions">
-                            <button type="button" className="bo-btn--ghost" onClick={toggleAll}>
+                            <button type="button" className="bo-btn--ghost" onClick={toggleAll} disabled={isDeleting}>
                                 {isAllSelected ? "Tout désélectionner" : "Tout sélectionner"}
                             </button>
-                            <button type="button" className="bo-btn--danger" onClick={doDelete} disabled={selected.size === 0}>
-                                Supprimer la sélection
+                            <button type="button" className="bo-btn--danger" onClick={doDelete} disabled={selected.size === 0 || isDeleting}>
+                                {isDeleting ? "Suppression…" : "Supprimer la sélection"}
                             </button>
                         </div>
                     </div>

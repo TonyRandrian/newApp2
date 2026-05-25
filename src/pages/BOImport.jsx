@@ -50,6 +50,8 @@ function BOImport() {
             <div className="bo-page__body bo-import">
                 <form className="bo-card bo-import__form" onSubmit={handleSubmit}>
                     <div className="bo-card__body">
+                        {isImporting && <p className="bo-status bo-status--loading">Import en cours…</p>}
+
                         <div className="bo-import__fields">
                             <div className="bo-import__field">
                                 <div className="bo-import__field-header">
