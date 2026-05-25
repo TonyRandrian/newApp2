@@ -7,11 +7,10 @@ import { filterProducts } from "../backend/services/ProductService.js";
 function FOProductList() {
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
-    const [, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
     const [imageUrls, setImageUrls] = useState({});
     const [badges, setBadges] = useState({});
 
-    // filtres
     const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(0);
     const [categoryId, setCategoryId] = useState("");
@@ -96,7 +95,7 @@ function FOProductList() {
             minPrice,
             maxPrice,
             categoryId: categoryId || null,
-            name
+            name,
         });
     }, [products, minPrice, maxPrice, categoryId, name]);
 
@@ -105,74 +104,156 @@ function FOProductList() {
     }, [categories]);
 
     return (
-        <div>
-            <h1>Product List</h1>
+        <div className="fo-page">
+            <header className="fo-page__head">
+                <div className="fo-page__heading">
+                    <span className="fo-page__eyebrow">Catalogue</span>
+                    <h1 className="fo-page__title">Nos produits</h1>
+                    <p className="fo-page__subtitle">
+                        Parcourez le catalogue, filtrez par nom, prix et catégorie.
+                    </p>
+                </div>
+            </header>
 
-            <div>
-                <label>Name : </label>
-                <input placeholder="Search name" value={name} onChange={(e) => setName(e.target.value)} />
-                <label>Min price : </label>
-                <input placeholder="Min price" type="number" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} min={0} />
-                <label>Max price : </label>
-                <input placeholder="Max price" type="number" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} min={0} />
-                <label>Category : </label>
-                <select value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
-                    <option value="">All Categories</option>
-                    {selectableCategories.map((category, index) => (
-                        <option key={`${category.id}-${index}`} value={category.id}>
-                            {category.name}
-                        </option>
-                    ))}
-                </select>
+            <div className="fo-card">
+                <div className="fo-card__head">
+                    <div className="fo-card__heading">
+                        <h2 className="fo-card__title">Filtres</h2>
+                    </div>
+                </div>
+                <div className="fo-card__body">
+                    <div className="fo-filters">
+                        <div className="fo-filter">
+                            <label className="fo-filter__label">Nom</label>
+                            <input
+                                type="text"
+                                placeholder="Rechercher un nom"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                        </div>
+                        <div className="fo-filter">
+                            <label className="fo-filter__label">Prix min</label>
+                            <input
+                                type="number"
+                                placeholder="0"
+                                value={minPrice}
+                                onChange={(e) => setMinPrice(e.target.value)}
+                                min={0}
+                            />
+                        </div>
+                        <div className="fo-filter">
+                            <label className="fo-filter__label">Prix max</label>
+                            <input
+                                type="number"
+                                placeholder="0"
+                                value={maxPrice}
+                                onChange={(e) => setMaxPrice(e.target.value)}
+                                min={0}
+                            />
+                        </div>
+                        <div className="fo-filter">
+                            <label className="fo-filter__label">Catégorie</label>
+                            <select
+                                value={categoryId}
+                                onChange={(e) => setCategoryId(e.target.value)}
+                            >
+                                <option value="">Toutes les catégories</option>
+                                {selectableCategories.map((category, index) => (
+                                    <option key={`${category.id}-${index}`} value={category.id}>
+                                        {category.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Image</th>
-                        <th>Name</th>
-                        <th>Reference</th>
-                        <th>Price</th>
-                        <th>Category</th>
-                        <th>Stock total</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
+            <div className="fo-card">
+                <div className="fo-card__head">
+                    <div className="fo-card__heading">
+                        <h2 className="fo-card__title">Produits</h2>
+                        <span className="fo-card__subtitle">
+                            {filteredProducts.length} résultat{filteredProducts.length > 1 ? "s" : ""}
+                        </span>
+                    </div>
+                </div>
+                <div className="fo-card__body fo-card__body--flush">
+                    {isLoading ? (
+                        <p className="fo-status fo-status--loading">Chargement des produits…</p>
+                    ) : filteredProducts.length === 0 ? (
+                        <p className="fo-empty">Aucun produit ne correspond aux filtres.</p>
+                    ) : (
+                        <table className="fo-table">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Nom</th>
+                                    <th>Référence</th>
+                                    <th>Prix</th>
+                                    <th>Catégorie</th>
+                                    <th>Stock</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
 
-                <tbody>
-                    {filteredProducts.map((product, index) => (
-                        <tr key={`${product.id}-${index}`}>
-                            <td>
-                                {imageUrls[product.id] ? (
-                                    <img src={imageUrls[product.id]} alt="product" width="80" />
-                                ) : (
-                                    "no image"
-                                )}
-                            </td>
+                            <tbody>
+                                {filteredProducts.map((product, index) => (
+                                    <tr key={`${product.id}-${index}`}>
+                                        <td>
+                                            {imageUrls[product.id] ? (
+                                                <img
+                                                    src={imageUrls[product.id]}
+                                                    alt="product"
+                                                    width="64"
+                                                    height="64"
+                                                />
+                                            ) : (
+                                                <span className="fo-status">Aucune image</span>
+                                            )}
+                                        </td>
 
-                            <td>
-                                {product.name?.[0]?.value}
-                                {badges[product.id] ? (
-                                    <span style={{ color: badges[product.id].color }}>
-                                        {` (${badges[product.id].label})`}
-                                    </span>
-                                ) : null}
-                            </td>
+                                        <td>
+                                            {product.name?.[0]?.value}
+                                            {badges[product.id] ? (
+                                                <span
+                                                    className="fo-table__badge"
+                                                    style={{
+                                                        color: badges[product.id].color,
+                                                        borderColor: badges[product.id].color,
+                                                    }}
+                                                >
+                                                    {badges[product.id].label}
+                                                </span>
+                                            ) : null}
+                                        </td>
 
-                            <td>{product.reference}</td>
-                            <td>{Number(product.priceTtc ?? product.price).toFixed(2)}</td>
-                            <td>{product.categoryName || "-"}</td>
-                            <td>{product.quantity}</td>
+                                        <td>{product.reference}</td>
+                                        <td className="fo-table__price">
+                                            {Number(product.priceTtc ?? product.price).toFixed(2)}
+                                        </td>
+                                        <td>{product.categoryName || "-"}</td>
+                                        <td className="fo-table__numeric">{product.quantity}</td>
 
-                            <td>
-                                <button onClick={() => handlePreview(product.id)}>
-                                    Aperçu
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+                                        <td>
+                                            <div className="fo-table__actions">
+                                                <button
+                                                    type="button"
+                                                    className="fo-btn--primary fo-btn--sm"
+                                                    onClick={() => handlePreview(product.id)}
+                                                >
+                                                    Aperçu
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    )}
+                </div>
+            </div>
         </div>
     );
 }

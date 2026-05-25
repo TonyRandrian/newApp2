@@ -18,14 +18,18 @@ function OrderActionCell({ cell, table }) {
         const dateValue = isSelected ? (edit?.cartDateOrder || baseDate) : baseDate
 
         return (
-            <div>
+            <div className="fo-order-action">
                 <input
                     type="date"
                     name="cartDateOrder"
                     onChange={meta.onChangeRef?.current?.(rowId, true)}
                     value={dateValue}
                 />
-                <button type="button" onClick={() => meta.onClickRef?.current?.(rowId)}>
+                <button
+                    type="button"
+                    className="fo-btn--primary fo-btn--sm"
+                    onClick={() => meta.onClickRef?.current?.(rowId)}
+                >
                     Commander
                 </button>
             </div>
@@ -37,7 +41,7 @@ function OrderActionCell({ cell, table }) {
     const multiplicateurValue = isSelected ? (edit?.multiplicateur ?? multiplicateur) : multiplicateur
 
     return (
-        <div>
+        <div className="fo-order-action">
             <input
                 type="number"
                 name="multiplicateur"
@@ -50,8 +54,12 @@ function OrderActionCell({ cell, table }) {
                 onChange={meta.onChangeRef?.current?.(rowId, false)}
                 value={dateValue}
             />
-            <button type="button" onClick={() => meta.onClickRef?.current?.(rowId)}>
-                Dupliquer la commande
+            <button
+                type="button"
+                className="fo-btn--sm"
+                onClick={() => meta.onClickRef?.current?.(rowId)}
+            >
+                Dupliquer
             </button>
         </div>
     )
@@ -145,18 +153,24 @@ function FOOderRow({
         initialState: {
             pagination: { pageIndex: 0, pageSize: 10 },
         },
-        muiTableBodyRowProps: ({ row }) => ({
-            sx: {
-                backgroundColor: row.index % 2 === 0 ? "#fafafa" : "#ffffff",
-            },
-        }),
     })
 
     return (
-        <section>
-            {title ? <h3>{title}</h3> : null}
-            <MaterialReactTable table={table} />
-        </section>
+        <div className="fo-card">
+            {title ? (
+                <div className="fo-card__head">
+                    <div className="fo-card__heading">
+                        <h2 className="fo-card__title">{title}</h2>
+                        <span className="fo-card__subtitle">
+                            {safeRows.length} ligne{safeRows.length > 1 ? "s" : ""}
+                        </span>
+                    </div>
+                </div>
+            ) : null}
+            <div className="fo-card__body fo-card__body--flush">
+                <MaterialReactTable table={table} />
+            </div>
+        </div>
     )
 }
 

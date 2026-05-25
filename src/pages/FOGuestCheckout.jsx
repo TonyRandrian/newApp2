@@ -166,65 +166,179 @@ function FOGuestCheckout() {
     };
 
     if (isLoading) {
-        return <p>Chargement...</p>;
+        return (
+            <div className="fo-page">
+                <p className="fo-status fo-status--loading">Chargement…</p>
+            </div>
+        );
     }
 
     if (!cart) {
-        return <p>Pas de panier</p>;
+        return (
+            <div className="fo-page">
+                <p className="fo-empty">Pas de panier actif.</p>
+            </div>
+        );
     }
 
     return (
-        <div>
-            <h1>Finaliser la commande</h1>
+        <div className="fo-page">
+            <header className="fo-page__head">
+                <div className="fo-page__heading">
+                    <span className="fo-page__eyebrow">Paiement</span>
+                    <h1 className="fo-page__title">Finaliser la commande</h1>
+                    <p className="fo-page__subtitle">
+                        Connectez-vous ou créez un compte pour valider votre panier.
+                    </p>
+                </div>
+            </header>
 
-            {error ? <p>{error}</p> : null}
+            {error ? (
+                <div className="fo-banner fo-banner--error">
+                    <span className="fo-banner__title">Erreur</span>
+                    <span>{error}</span>
+                </div>
+            ) : null}
 
-            <div>
-                <button type="button" onClick={() => setMode("login")}>Se connecter</button>
-                <button type="button" onClick={() => setMode("register")}>Inserer les infos</button>
+            <div className="fo-tabs">
+                <button
+                    type="button"
+                    className={mode === "login" ? "is-active" : ""}
+                    onClick={() => setMode("login")}
+                >
+                    Se connecter
+                </button>
+                <button
+                    type="button"
+                    className={mode === "register" ? "is-active" : ""}
+                    onClick={() => setMode("register")}
+                >
+                    Créer un compte
+                </button>
             </div>
 
             {mode === "login" ? (
-                <div>
-                    <h2>Choisir un client</h2>
-                    <table>
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Firstname</th>
-                            <th>Lastname</th>
-                            <th>Email</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {customers.map((customer) => (
-                            <FOUserRow
-                                key={customer.id}
-                                customer={customer}
-                                onClick={() => handleLoginCustomer(customer)}
-                            />
-                        ))}
-                        </tbody>
-                    </table>
+                <div className="fo-card">
+                    <div className="fo-card__head">
+                        <div className="fo-card__heading">
+                            <h2 className="fo-card__title">Choisir un client</h2>
+                            <span className="fo-card__subtitle">
+                                Sélectionnez votre compte pour rattacher la commande.
+                            </span>
+                        </div>
+                    </div>
+                    <div className="fo-card__body fo-card__body--flush">
+                        <table className="fo-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Prénom</th>
+                                    <th>Nom</th>
+                                    <th>Email</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {customers.map((customer) => (
+                                    <FOUserRow
+                                        key={customer.id}
+                                        customer={customer}
+                                        onClick={() => handleLoginCustomer(customer)}
+                                    />
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             ) : (
-                <form onSubmit={handleFormSubmit}>
-                    <h2>Informations client</h2>
-                    <input type="text" placeholder="Firstname" value={form.firstname} onChange={handleFormChange("firstname")} />
-                    <input type="text" placeholder="Lastname" value={form.lastname} onChange={handleFormChange("lastname")} />
-                    <input type="email" placeholder="Email" value={form.email} onChange={handleFormChange("email")} />
-                    <input type="text" placeholder="Password" value={form.password} onChange={handleFormChange("password")} />
-                    <input type="text" placeholder="Adresse" value={form.address1} onChange={handleFormChange("address1")} />
-                    <input type="text" placeholder="Code postal" value={form.postcode} onChange={handleFormChange("postcode")} />
-                    <input type="text" placeholder="Ville" value={form.city} onChange={handleFormChange("city")} />
-                    <button type="submit" disabled={isSubmitting}>Creer compte</button>
-                </form>
+                <div className="fo-card">
+                    <div className="fo-card__head">
+                        <div className="fo-card__heading">
+                            <h2 className="fo-card__title">Informations client</h2>
+                        </div>
+                    </div>
+                    <form className="fo-card__body" onSubmit={handleFormSubmit}>
+                        <div className="fo-filters">
+                            <div className="fo-filter">
+                                <label className="fo-filter__label">Prénom</label>
+                                <input
+                                    type="text"
+                                    placeholder="Prénom"
+                                    value={form.firstname}
+                                    onChange={handleFormChange("firstname")}
+                                />
+                            </div>
+                            <div className="fo-filter">
+                                <label className="fo-filter__label">Nom</label>
+                                <input
+                                    type="text"
+                                    placeholder="Nom"
+                                    value={form.lastname}
+                                    onChange={handleFormChange("lastname")}
+                                />
+                            </div>
+                            <div className="fo-filter">
+                                <label className="fo-filter__label">Email</label>
+                                <input
+                                    type="email"
+                                    placeholder="email@example.com"
+                                    value={form.email}
+                                    onChange={handleFormChange("email")}
+                                />
+                            </div>
+                            <div className="fo-filter">
+                                <label className="fo-filter__label">Mot de passe</label>
+                                <input
+                                    type="password"
+                                    placeholder="Mot de passe"
+                                    value={form.password}
+                                    onChange={handleFormChange("password")}
+                                />
+                            </div>
+                            <div className="fo-filter">
+                                <label className="fo-filter__label">Adresse</label>
+                                <input
+                                    type="text"
+                                    placeholder="Adresse"
+                                    value={form.address1}
+                                    onChange={handleFormChange("address1")}
+                                />
+                            </div>
+                            <div className="fo-filter">
+                                <label className="fo-filter__label">Code postal</label>
+                                <input
+                                    type="text"
+                                    placeholder="Code postal"
+                                    value={form.postcode}
+                                    onChange={handleFormChange("postcode")}
+                                />
+                            </div>
+                            <div className="fo-filter">
+                                <label className="fo-filter__label">Ville</label>
+                                <input
+                                    type="text"
+                                    placeholder="Ville"
+                                    value={form.city}
+                                    onChange={handleFormChange("city")}
+                                />
+                            </div>
+                        </div>
+                        <div className="fo-card__footer" style={{ marginTop: 16, marginLeft: -24, marginRight: -24, marginBottom: -22 }}>
+                            <button type="submit" disabled={isSubmitting}>
+                                Créer le compte
+                            </button>
+                        </div>
+                    </form>
+                </div>
             )}
 
             {!isGuest ? (
-                <div>
-                    <button type="button" onClick={handleConfirmOrder}>
+                <div className="fo-page__actions" style={{ marginLeft: 0 }}>
+                    <button
+                        type="button"
+                        className="fo-btn--primary fo-btn--lg"
+                        onClick={handleConfirmOrder}
+                    >
                         Effectuer la commande
                     </button>
                 </div>

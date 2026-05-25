@@ -1,0 +1,225 @@
+/* Native tables + Material React Table overrides. */
+
+/* ------- Native HTML tables (cart, products, customers) --------------- */
+
+.fo-app .fo-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--fo-surface);
+    font-size: 13px;
+}
+
+.fo-app .fo-table thead th {
+    background: var(--fo-surface-alt);
+    color: var(--fo-muted);
+    font-family: var(--fo-font-sans);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 10.5px;
+    text-align: left;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--fo-border-strong);
+    white-space: nowrap;
+}
+
+.fo-app .fo-table tbody td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--fo-line);
+    color: var(--fo-ink-soft);
+    vertical-align: middle;
+}
+
+.fo-app .fo-table tbody tr:hover td {
+    background: var(--fo-bg-soft);
+}
+
+.fo-app .fo-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.fo-app .fo-table img {
+    display: block;
+    border-radius: var(--fo-radius);
+    background: var(--fo-bg-soft);
+    object-fit: cover;
+}
+
+.fo-app .fo-table--center td,
+.fo-app .fo-table--center th {
+    text-align: center;
+}
+
+.fo-app .fo-table__numeric {
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+}
+
+.fo-app .fo-table__price {
+    font-family: var(--fo-font-serif);
+    font-weight: 500;
+    color: var(--fo-ink);
+    font-variant-numeric: tabular-nums;
+}
+
+.fo-app .fo-table__actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.fo-app .fo-table__actions button {
+    min-height: 30px;
+    padding: 5px 12px;
+    font-size: 12px;
+}
+
+.fo-app .fo-table__badge {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 10.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    background: var(--fo-bg-soft);
+    border: 1px solid var(--fo-border);
+    color: var(--fo-ink-soft);
+}
+
+/* ------- Material React Table -----------------------------------------*/
+
+.fo-app .MuiPaper-root {
+    background: var(--fo-surface) !important;
+    border: 1px solid var(--fo-border) !important;
+    border-radius: var(--fo-radius-lg) !important;
+    box-shadow: var(--fo-shadow-sm) !important;
+    color: var(--fo-ink) !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.fo-app .fo-card .MuiPaper-root {
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+.fo-app .MuiTableContainer-root {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+}
+
+.fo-app .MuiTableCell-root {
+    font-family: var(--fo-font-sans) !important;
+    color: var(--fo-ink-soft) !important;
+    border-bottom: 1px solid var(--fo-line) !important;
+    padding: 10px 14px !important;
+    font-size: 13px !important;
+}
+
+.fo-app .MuiTableHead-root .MuiTableCell-root,
+.fo-app .MuiTableCell-head {
+    background: var(--fo-surface-alt) !important;
+    color: var(--fo-muted) !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    font-size: 10.5px !important;
+    border-bottom: 1px solid var(--fo-border-strong) !important;
+}
+
+.fo-app .MuiTableRow-root:hover .MuiTableCell-root {
+    background: var(--fo-bg-soft) !important;
+}
+
+.fo-app .MuiTableSortLabel-root,
+.fo-app .MuiTableSortLabel-icon {
+    color: var(--fo-muted) !important;
+}
+
+.fo-app .MuiButtonBase-root.MuiIconButton-root {
+    color: var(--fo-muted) !important;
+}
+
+.fo-app .MuiButtonBase-root.MuiIconButton-root:hover {
+    color: var(--fo-accent) !important;
+    background: var(--fo-accent-soft) !important;
+}
+
+.fo-app .MuiInputBase-root {
+    font-family: var(--fo-font-sans) !important;
+    color: var(--fo-ink) !important;
+    font-size: 13px !important;
+}
+
+.fo-app .MuiOutlinedInput-notchedOutline,
+.fo-app .MuiInput-underline::before {
+    border-color: var(--fo-border-strong) !important;
+}
+
+.fo-app .Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: var(--fo-accent) !important;
+    border-width: 1px !important;
+}
+
+.fo-app .MuiToolbar-root {
+    background: var(--fo-surface) !important;
+    border-bottom: 1px solid var(--fo-line) !important;
+    min-height: 52px !important;
+}
+
+.fo-app .MuiPaper-root .MuiBox-root {
+    background-color: transparent !important;
+    background-image: none !important;
+}
+
+.fo-app .MuiButtonBase-root.MuiIconButton-root svg,
+.fo-app .MuiButtonBase-root.MuiIconButton-root path {
+    color: var(--fo-muted) !important;
+    fill: currentColor !important;
+}
+
+.fo-app .MuiButtonBase-root.MuiIconButton-root:hover svg,
+.fo-app .MuiButtonBase-root.MuiIconButton-root:hover path {
+    color: var(--fo-accent) !important;
+}
+
+.fo-app .MuiTablePagination-root,
+.fo-app .MuiTypography-root {
+    color: var(--fo-ink-soft) !important;
+}
+
+.fo-app .MuiTableCell-root button {
+    background: var(--fo-surface);
+    color: var(--fo-ink-soft);
+    border: 1px solid var(--fo-border-strong);
+    padding: 4px 10px;
+    min-height: 26px;
+    font-size: 12px;
+    border-radius: var(--fo-radius);
+    margin-right: 4px;
+}
+
+.fo-app .MuiTableCell-root button:hover {
+    background: var(--fo-ink);
+    color: var(--fo-surface);
+    border-color: var(--fo-ink);
+}
+
+.fo-app .MuiTableCell-root select,
+.fo-app .MuiTableCell-root input[type="date"],
+.fo-app .MuiTableCell-root input[type="number"] {
+    min-height: 28px;
+    padding: 4px 8px;
+    font-size: 12px;
+}
+
+.fo-app .fo-order-action {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}

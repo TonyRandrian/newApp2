@@ -1,0 +1,86 @@
+/* Reset, typography, scrollbars — scoped to .fo-app. */
+
+.fo-app {
+    background-color: var(--fo-bg);
+    color: var(--fo-ink);
+    font-family: var(--fo-font-sans);
+    font-size: 14px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.fo-app *,
+.fo-app *::before,
+.fo-app *::after {
+    box-sizing: border-box;
+}
+
+.fo-app h1,
+.fo-app h2,
+.fo-app h3,
+.fo-app h4,
+.fo-app h5,
+.fo-app h6,
+.fo-app p,
+.fo-app figure,
+.fo-app pre {
+    margin: 0;
+}
+
+.fo-app h1,
+.fo-app h2,
+.fo-app h3,
+.fo-app h4,
+.fo-app h5,
+.fo-app h6 {
+    font-family: var(--fo-font-serif);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--fo-ink);
+    font-size: inherit;
+    line-height: 1.25;
+}
+
+.fo-app a {
+    color: var(--fo-accent);
+    text-decoration: none;
+}
+
+.fo-app pre {
+    font-family: var(--fo-font-mono);
+    font-size: 12px;
+    background: var(--fo-surface-alt);
+    border: 1px solid var(--fo-border);
+    border-radius: var(--fo-radius);
+    padding: 12px 14px;
+    overflow-x: auto;
+    color: var(--fo-ink-soft);
+}
+
+.fo-app ::selection {
+    background: var(--fo-accent);
+    color: #fff;
+}
+
+.fo-app ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.fo-app ::-webkit-scrollbar-track {
+    background: var(--fo-bg);
+}
+
+.fo-app ::-webkit-scrollbar-thumb {
+    background: var(--fo-border-strong);
+    border: 2px solid var(--fo-bg);
+    border-radius: 6px;
+}
+
+.fo-app ::-webkit-scrollbar-thumb:hover {
+    background: var(--fo-muted);
+}

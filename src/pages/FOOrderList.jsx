@@ -102,38 +102,46 @@ function FOOrderList() {
     )
 
     return (
-        <>
-            <h1>Liste de tous les commandes</h1>
+        <div className="fo-page">
+            <header className="fo-page__head">
+                <div className="fo-page__heading">
+                    <span className="fo-page__eyebrow">Historique</span>
+                    <h1 className="fo-page__title">Mes commandes</h1>
+                    <p className="fo-page__subtitle">
+                        Vos commandes passées et vos paniers en attente de validation.
+                    </p>
+                </div>
+            </header>
 
-            {isLoading ? (
-                <p>Chargements des clients</p>
-            ) : (
-                <FOOrderRow
-                    title="Commandes"
-                    rows={orders}
-                    edit={edit}
-                    multiplicateur={1}
-                    onChange={handleChange}
-                    onClick={handleClick}
-                    actionMode="order"
-                />
-            )}
+            <div className="fo-page__body">
+                {isLoading ? (
+                    <p className="fo-status fo-status--loading">Chargement des commandes…</p>
+                ) : (
+                    <FOOrderRow
+                        title="Commandes"
+                        rows={orders}
+                        edit={edit}
+                        multiplicateur={1}
+                        onChange={handleChange}
+                        onClick={handleClick}
+                        actionMode="order"
+                    />
+                )}
 
-            <h2>Mes paniers sans commande</h2>
-
-            {isLoading ? (
-                <p>Chargements des paniers</p>
-            ) : (
-                <FOOrderRow
-                    title="Paniers"
-                    rows={cartRows}
-                    edit={edit}
-                    onChange={handleChange}
-                    onClick={handleCommanderClick}
-                    actionMode="cart"
-                />
-            )}
-        </>
+                {isLoading ? (
+                    <p className="fo-status fo-status--loading">Chargement des paniers…</p>
+                ) : (
+                    <FOOrderRow
+                        title="Paniers sans commande"
+                        rows={cartRows}
+                        edit={edit}
+                        onChange={handleChange}
+                        onClick={handleCommanderClick}
+                        actionMode="cart"
+                    />
+                )}
+            </div>
+        </div>
     )
 }
 

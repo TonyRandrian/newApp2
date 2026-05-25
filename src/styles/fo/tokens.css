@@ -1,0 +1,43 @@
+/* Frontoffice design tokens — same palette as backoffice so both UIs stay coherent. */
+
+.fo-app {
+    --fo-bg: #f4f1e9;
+    --fo-bg-soft: #ebe7dc;
+    --fo-surface: #ffffff;
+    --fo-surface-alt: #fbf9f4;
+    --fo-border: #e2dcd0;
+    --fo-border-strong: #c9c1b1;
+    --fo-line: #ebe6db;
+
+    --fo-ink: #1c1916;
+    --fo-ink-soft: #3a3631;
+    --fo-muted: #6b665d;
+    --fo-faint: #9c9587;
+
+    --fo-accent: #1f4b50;
+    --fo-accent-hover: #163537;
+    --fo-accent-soft: #e6ece9;
+
+    --fo-danger: #7a2e1e;
+    --fo-danger-hover: #5d2317;
+    --fo-success: #2d5a3d;
+
+    --fo-radius: 2px;
+    --fo-radius-lg: 4px;
+
+    --fo-shadow-sm: 0 1px 0 rgba(28, 25, 22, 0.04);
+    --fo-shadow-md: 0 1px 2px rgba(28, 25, 22, 0.06), 0 0 0 1px rgba(28, 25, 22, 0.04);
+    --fo-shadow-lg: 0 8px 24px rgba(28, 25, 22, 0.05), 0 0 0 1px rgba(28, 25, 22, 0.03);
+
+    --fo-navbar-h: 64px;
+    --fo-navbar-bg: #1a1714;
+    --fo-navbar-fg: #d8d2c4;
+    --fo-navbar-fg-muted: #c9c1b1;
+    --fo-navbar-fg-faint: #847d6e;
+    --fo-navbar-divider: rgba(216, 210, 196, 0.08);
+    --fo-navbar-hover: rgba(216, 210, 196, 0.06);
+
+    --fo-font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --fo-font-serif: "Source Serif Pro", "Iowan Old Style", "Apple Garamond", Georgia, "Times New Roman", serif;
+    --fo-font-mono: "JetBrains Mono", "SF Mono", "Cascadia Code", Consolas, "Roboto Mono", monospace;
+}

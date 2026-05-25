@@ -44,17 +44,18 @@ function FOProductPreview() {
         const idProductAttribute = selectedDeclinaison ? selectedDeclinaison.id : 0;
 
         CartService.addProductToCart(
-            idCustomer, 
-            product.id, 
-            idProductAttribute, 
-            quantity, 1).then(() => {
+            idCustomer,
+            product.id,
+            idProductAttribute,
+            quantity,
+            1
+        ).then(() => {
             alert("Produit ajouté au panier !");
         }).catch((error) => {
             console.error("Error adding to cart: ", error);
             alert("Erreur lors de l'ajout au panier.");
         });
     };
-
 
     const getDisplayedPrice = (baseTtc, taxRate, declinaison) => {
         const impactPrice = declinaison ? Number(declinaison.priceImpact || 0) : 0;
@@ -84,8 +85,8 @@ function FOProductPreview() {
                 const taxRate = await productData.getTax();
                 setTax(taxRate);
 
-                const ttcPrice = await productData.getTtcPrice();
-                setTtcPrice(ttcPrice);
+                const ttcPriceData = await productData.getTtcPrice();
+                setTtcPrice(ttcPriceData);
                 const data = await productData.getDeclinaisons();
                 setDeclinaisons(data);
                 if (data?.values?.length) {
@@ -108,70 +109,126 @@ function FOProductPreview() {
         loadProduct();
     }, [id]);
 
-    if (isLoading) 
-        return <h1>Chargement...</h1>;
-    if (!product) 
-        return <h1>Produit introuvable</h1>;
+    if (isLoading) {
+        return (
+            <div className="fo-page">
+                <p className="fo-status fo-status--loading">Chargement…</p>
+            </div>
+        );
+    }
+
+    if (!product) {
+        return (
+            <div className="fo-page">
+                <p className="fo-empty">Produit introuvable</p>
+            </div>
+        );
+    }
 
     return (
-        <>
-            <h1>Apperçu du produit : {id}</h1>
+        <div className="fo-page">
+            <header className="fo-page__head">
+                <div className="fo-page__heading">
+                    <span className="fo-page__eyebrow">Produit #{id}</span>
+                    <h1 className="fo-page__title">Aperçu du produit</h1>
+                </div>
+            </header>
 
-            {imageUrl ? (
-                <img
-                    src={imageUrl}
-                    alt={imageUrl}
-                    width="160"
-                />
-            ) : (
-                <p>no image</p>
-            )}
-
-            <h2>name : {product.name?.[0]?.value}</h2>
-            {badge ? (
-                <h2 style={{ color: badge.color }}>{badge.label}</h2>
-            ) : null}
-            <h2>reference : {product.reference}</h2>
-            <h2>price TTC : {displayedPrice.toFixed(2)}</h2>
-            <h2>stock : {stockQuantity ?? "-"}</h2>
-
-            {declinaisons?.values?.length ? (
-                <>
-                    <h2>Declinaison :</h2>
-
-                    <select
-                        name="option"
-                        onChange={handleDeclinaisonChange}
-                        value={selectedDeclinaison?.id ?? declinaisons.values[0]?.id}
-                    >
-                        {declinaisons.values.map((v) => (
-                            <option key={v.id} value={v.id}>
-                                {v.label || ""}
-                            </option>
-                        ))}
-                    </select>
-                </>
-            ) : null}
-
-            <h2>
-                <p>Quantite : </p>
-                <button onClick={() => setQuantity(Math.max(1, quantity - 1))}>-</button>
-                <input type="number" value={quantity} readOnly min={1} />
-                <button
-                    onClick={() => {
-                        const stock = Number(stockQuantity ?? 0);
-                        const next = quantity + 1;
-                        setQuantity(stock > 0 ? Math.min(next, stock) : next);
-                    }}
+            <div className="fo-product">
+                <div
+                    className={
+                        imageUrl ? "fo-product__media" : "fo-product__media fo-product__media--empty"
+                    }
                 >
-                    +
-                </button>
-            </h2>
+                    {imageUrl ? (
+                        <img src={imageUrl} alt={product.name?.[0]?.value || ""} />
+                    ) : (
+                        <span>Aucune image disponible</span>
+                    )}
+                </div>
 
-            <button onClick={handleAjouterPanier}>
-                Ajouter au panier
-            </button>
-        </>
+                <div className="fo-product__details">
+                    {badge ? (
+                        <span
+                            className="fo-product__badge"
+                            style={{ color: badge.color, borderColor: badge.color }}
+                        >
+                            {badge.label}
+                        </span>
+                    ) : null}
+
+                    <h2 className="fo-product__name">{product.name?.[0]?.value}</h2>
+                    <span className="fo-product__reference">Réf. {product.reference}</span>
+
+                    <div className="fo-product__price">
+                        {displayedPrice.toFixed(2)} €
+                    </div>
+
+                    <div className="fo-product__meta">
+                        <span className="fo-product__meta-item">
+                            <span className="fo-product__meta-label">Stock</span>
+                            <span className="fo-product__meta-value">{stockQuantity ?? "-"}</span>
+                        </span>
+                        <span className="fo-product__meta-item">
+                            <span className="fo-product__meta-label">TVA</span>
+                            <span className="fo-product__meta-value">{tax}%</span>
+                        </span>
+                    </div>
+
+                    <div className="fo-product__form">
+                        {declinaisons?.values?.length ? (
+                            <div className="fo-field">
+                                <label className="fo-field__label">Déclinaison</label>
+                                <select
+                                    name="option"
+                                    onChange={handleDeclinaisonChange}
+                                    value={selectedDeclinaison?.id ?? declinaisons.values[0]?.id}
+                                >
+                                    {declinaisons.values.map((v) => (
+                                        <option key={v.id} value={v.id}>
+                                            {v.label || ""}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        ) : null}
+
+                        <div className="fo-field">
+                            <label className="fo-field__label">Quantité</label>
+                            <div className="fo-qty">
+                                <button
+                                    type="button"
+                                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                                >
+                                    −
+                                </button>
+                                <input type="number" value={quantity} readOnly min={1} />
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        const stock = Number(stockQuantity ?? 0);
+                                        const next = quantity + 1;
+                                        setQuantity(stock > 0 ? Math.min(next, stock) : next);
+                                    }}
+                                >
+                                    +
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="fo-product__cta">
+                        <button
+                            type="button"
+                            className="fo-btn--primary fo-btn--lg"
+                            onClick={handleAjouterPanier}
+                        >
+                            Ajouter au panier
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 }
 

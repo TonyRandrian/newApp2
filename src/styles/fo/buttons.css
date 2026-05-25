@@ -1,0 +1,91 @@
+/* Buttons — bare element + .fo-btn modifiers. */
+
+.fo-app button,
+.fo-app input[type="submit"] {
+    appearance: none;
+    -webkit-appearance: none;
+    font: inherit;
+    font-weight: 500;
+    color: var(--fo-surface);
+    background: var(--fo-ink);
+    border: 1px solid var(--fo-ink);
+    border-radius: var(--fo-radius);
+    padding: 8px 18px;
+    min-height: 36px;
+    cursor: pointer;
+    transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease, transform 80ms ease;
+    letter-spacing: 0.01em;
+    font-family: var(--fo-font-sans);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.fo-app button:hover,
+.fo-app input[type="submit"]:hover {
+    background: var(--fo-accent);
+    border-color: var(--fo-accent);
+}
+
+.fo-app button:active {
+    transform: translateY(1px);
+}
+
+.fo-app button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.fo-app button[type="submit"],
+.fo-app .fo-btn--primary {
+    background: var(--fo-accent);
+    border-color: var(--fo-accent);
+    color: #fff;
+}
+
+.fo-app button[type="submit"]:hover,
+.fo-app .fo-btn--primary:hover {
+    background: var(--fo-accent-hover);
+    border-color: var(--fo-accent-hover);
+}
+
+.fo-app .fo-btn--ghost {
+    background: var(--fo-surface);
+    border-color: var(--fo-border-strong);
+    color: var(--fo-ink-soft);
+}
+
+.fo-app .fo-btn--ghost:hover {
+    background: var(--fo-bg-soft);
+    border-color: var(--fo-ink);
+    color: var(--fo-ink);
+}
+
+.fo-app .fo-btn--danger {
+    background: var(--fo-danger);
+    border-color: var(--fo-danger);
+    color: #fff;
+}
+
+.fo-app .fo-btn--danger:hover {
+    background: var(--fo-danger-hover);
+    border-color: var(--fo-danger-hover);
+}
+
+.fo-app .fo-btn--block {
+    width: 100%;
+}
+
+.fo-app .fo-btn--sm {
+    min-height: 30px;
+    padding: 5px 12px;
+    font-size: 12px;
+}
+
+.fo-app .fo-btn--lg {
+    min-height: 44px;
+    padding: 10px 24px;
+    font-size: 14px;
+}

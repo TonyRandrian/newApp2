@@ -59,19 +59,15 @@ function FOCartRow({ row, index, onOptionChange, onQuantityChange, onDelete, for
 
     return (
         <tr>
-            <td>{row.productName || ""}</td>
-            <td>{row.productReference || ""}</td>
             <td>
                 {row.productImageURL ? (
-                    <img
-                        src={row.productImageURL}
-                        alt={row.productImageURL}
-                        width="120"
-                    />
+                    <img src={row.productImageURL} alt={row.productName || ""} width="72" height="72" />
                 ) : (
-                    "-"
+                    <span className="fo-status">-</span>
                 )}
             </td>
+            <td>{row.productName || ""}</td>
+            <td>{row.productReference || ""}</td>
             <td>
                 {options.length > 0 ? (
                     <select value={selectedOptionId} onChange={handleChange}>
@@ -82,21 +78,29 @@ function FOCartRow({ row, index, onOptionChange, onQuantityChange, onDelete, for
                         ))}
                     </select>
                 ) : (
-                    "Sans declinaison"
+                    <span className="fo-status">Sans déclinaison</span>
                 )}
             </td>
-            <td>{row.stockQuantity ?? "-"}</td>
-            <td>{formatPrice(getRowDisplayedPrice(row))}</td>
+            <td className="fo-table__numeric">{row.stockQuantity ?? "-"}</td>
+            <td className="fo-table__price">{formatPrice(getRowDisplayedPrice(row))}</td>
             <td>
-                <button type="button" onClick={handleDecrease}>-</button>
-                <input type="number" value={row.quantity} readOnly min={1} />
-                <button type="button" onClick={handleIncrease}>+</button>
+                <div className="fo-qty">
+                    <button type="button" onClick={handleDecrease}>−</button>
+                    <input type="number" value={row.quantity} readOnly min={1} />
+                    <button type="button" onClick={handleIncrease}>+</button>
+                </div>
             </td>
-            <td>{formatPrice(getRowLineTotal(row))}</td>
+            <td className="fo-table__price">{formatPrice(getRowLineTotal(row))}</td>
             <td>
-                <button type="button" onClick={() => onDelete?.(index, row?.cartRowIndex)}>
-                    Supprimer
-                </button>
+                <div className="fo-table__actions">
+                    <button
+                        type="button"
+                        className="fo-btn--danger fo-btn--sm"
+                        onClick={() => onDelete?.(index, row?.cartRowIndex)}
+                    >
+                        Supprimer
+                    </button>
+                </div>
             </td>
         </tr>
     );

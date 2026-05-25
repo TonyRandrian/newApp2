@@ -1,0 +1,178 @@
+/* Form controls — labels, inputs, selects, checkboxes, file inputs. */
+
+.fo-app label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--fo-ink-soft);
+}
+
+.fo-app input[type="text"],
+.fo-app input[type="password"],
+.fo-app input[type="email"],
+.fo-app input[type="number"],
+.fo-app input[type="date"],
+.fo-app input[type="search"],
+.fo-app select,
+.fo-app textarea {
+    appearance: none;
+    -webkit-appearance: none;
+    font: inherit;
+    color: var(--fo-ink);
+    background: var(--fo-surface);
+    border: 1px solid var(--fo-border-strong);
+    border-radius: var(--fo-radius);
+    padding: 8px 12px;
+    min-height: 36px;
+    transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.fo-app select {
+    padding-right: 32px;
+    background-image: linear-gradient(45deg, transparent 50%, var(--fo-muted) 50%),
+        linear-gradient(135deg, var(--fo-muted) 50%, transparent 50%);
+    background-position: calc(100% - 16px) 50%, calc(100% - 11px) 50%;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+}
+
+.fo-app input:focus,
+.fo-app select:focus,
+.fo-app textarea:focus {
+    outline: none;
+    border-color: var(--fo-accent);
+    box-shadow: 0 0 0 3px var(--fo-accent-soft);
+}
+
+.fo-app input::placeholder,
+.fo-app textarea::placeholder {
+    color: var(--fo-faint);
+}
+
+.fo-app input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--fo-border-strong);
+    border-radius: 2px;
+    background: var(--fo-surface);
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    transition: all 120ms ease;
+}
+
+.fo-app input[type="checkbox"]:hover {
+    border-color: var(--fo-accent);
+}
+
+.fo-app input[type="checkbox"]:checked {
+    background: var(--fo-accent);
+    border-color: var(--fo-accent);
+}
+
+.fo-app input[type="checkbox"]:checked::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 5px;
+    height: 9px;
+    border: solid #fff;
+    border-width: 0 1.5px 1.5px 0;
+    transform: rotate(45deg);
+}
+
+/* ------- .fo-field — composable form group ----------------------------- */
+
+.fo-app .fo-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 400;
+    color: var(--fo-ink-soft);
+    font-size: 13px;
+}
+
+.fo-app .fo-field__label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--fo-muted);
+}
+
+.fo-app .fo-field__hint {
+    font-size: 12px;
+    color: var(--fo-faint);
+    font-style: italic;
+}
+
+.fo-app .fo-field--inline {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.fo-app .fo-field--inline .fo-field__label {
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--fo-ink-soft);
+}
+
+/* ------- Quantity stepper --------------------------------------------- */
+
+.fo-app .fo-qty {
+    display: inline-flex;
+    align-items: stretch;
+    border: 1px solid var(--fo-border-strong);
+    border-radius: var(--fo-radius);
+    overflow: hidden;
+    background: var(--fo-surface);
+}
+
+.fo-app .fo-qty button {
+    background: var(--fo-surface);
+    border: none;
+    color: var(--fo-ink-soft);
+    width: 30px;
+    min-height: 32px;
+    padding: 0;
+    font-size: 14px;
+    border-radius: 0;
+}
+
+.fo-app .fo-qty button:hover {
+    background: var(--fo-bg-soft);
+    color: var(--fo-ink);
+}
+
+.fo-app .fo-qty input[type="number"] {
+    border: none;
+    border-radius: 0;
+    border-left: 1px solid var(--fo-border);
+    border-right: 1px solid var(--fo-border);
+    min-height: 32px;
+    padding: 4px 8px;
+    width: 52px;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+    -moz-appearance: textfield;
+}
+
+.fo-app .fo-qty input[type="number"]::-webkit-inner-spin-button,
+.fo-app .fo-qty input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.fo-app .fo-qty input[type="number"]:focus {
+    box-shadow: none;
+    border-color: var(--fo-border);
+}

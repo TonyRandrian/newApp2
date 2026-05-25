@@ -1,0 +1,121 @@
+/* Product preview page — image + details two-column layout. */
+
+.fo-product {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 32px;
+    align-items: start;
+}
+
+.fo-product__media {
+    background: var(--fo-surface);
+    border: 1px solid var(--fo-border);
+    border-radius: var(--fo-radius-lg);
+    box-shadow: var(--fo-shadow-sm);
+    overflow: hidden;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.fo-product__media img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.fo-product__media--empty {
+    color: var(--fo-faint);
+    font-size: 13px;
+    font-style: italic;
+    background: var(--fo-surface-alt);
+}
+
+.fo-product__details {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.fo-product__name {
+    font-family: var(--fo-font-serif);
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--fo-ink);
+    letter-spacing: -0.01em;
+}
+
+.fo-product__reference {
+    font-size: 12px;
+    color: var(--fo-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.fo-product__price {
+    font-family: var(--fo-font-serif);
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--fo-accent);
+    font-variant-numeric: tabular-nums;
+}
+
+.fo-product__badge {
+    display: inline-block;
+    align-self: flex-start;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background: var(--fo-accent-soft);
+    color: var(--fo-accent);
+    border: 1px solid var(--fo-accent-soft);
+}
+
+.fo-product__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    padding: 12px 0;
+    border-top: 1px solid var(--fo-line);
+    border-bottom: 1px solid var(--fo-line);
+    color: var(--fo-muted);
+    font-size: 13px;
+}
+
+.fo-product__meta-item {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+}
+
+.fo-product__meta-label {
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--fo-faint);
+}
+
+.fo-product__meta-value {
+    color: var(--fo-ink-soft);
+    font-weight: 500;
+}
+
+.fo-product__form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.fo-product__cta {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-top: 8px;
+}

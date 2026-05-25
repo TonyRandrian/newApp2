@@ -8,11 +8,11 @@ import {useNavigate} from "react-router-dom";
 function FOUserList() {
     const [customers, setCustomers] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [user, setUser] = useLocalStorage("user", null);
-    const [isGuest, setIsGuest] = useLocalStorage("isGuest", false);
+    const [, setUser] = useLocalStorage("user", null);
+    const [, setIsGuest] = useLocalStorage("isGuest", false);
     const navigate = useNavigate();
 
-    const ANONYMOUS_CUSTOMER_ID = [1,2];
+    const ANONYMOUS_CUSTOMER_ID = [1, 2];
 
     useEffect(() => {
         async function loadCustomers() {
@@ -25,7 +25,7 @@ function FOUserList() {
                 setCustomers(data);
                 setIsLoading(false);
             } catch (error) {
-                console.error("ERROS WHILE FETCHING CUSTOMERS: " + error)
+                console.error("ERROS WHILE FETCHING CUSTOMERS: " + error);
                 return null;
             }
         }
@@ -36,44 +36,78 @@ function FOUserList() {
     const connectCustomer = (customer) => {
         setUser(customer);
         setIsGuest(false);
-        navigate('/fo/products')
-    }
-    
+        navigate('/fo/products');
+    };
+
     const connectGuest = () => {
         setUser({id: CustomerService.ANONYMOUS_ID});
         setIsGuest(true);
-        navigate('/fo/products')
-    }
+        navigate('/fo/products');
+    };
 
-    return <>
-        <h1>Se connecter avec un client</h1>
-        <button type={"button"} onClick={() => connectGuest()}>
-            Connexion anonyme
-        </button>
-        {isLoading ? (<p>Chargements des clients</p>) : (
-            <table>
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Firstname</th>
-                    <th>Lastname</th>
-                    <th>Email</th>
-                    <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                {
-                    customers.map(customer =>
-                        <FOUserRow
-                            key={customer.id}
-                            customer={customer}
-                            onClick={() => connectCustomer(customer)}
-                        />)
-                }
-                </tbody>
-            </table>)
-        }
-    </>
+    return (
+        <section className="fo-login">
+            <header className="fo-login__header">
+                <span className="fo-login__eyebrow">Boutique</span>
+                <h1 className="fo-login__title">Se connecter</h1>
+                <p className="fo-login__subtitle">
+                    Sélectionnez votre profil client ou continuez en visiteur.
+                </p>
+            </header>
+
+            <div className="fo-login__actions">
+                <button
+                    type="button"
+                    className="fo-btn--ghost"
+                    onClick={connectGuest}
+                >
+                    Connexion anonyme
+                </button>
+            </div>
+
+            <div className="fo-card">
+                <div className="fo-card__head">
+                    <div className="fo-card__heading">
+                        <h2 className="fo-card__title">Clients enregistrés</h2>
+                        <span className="fo-card__subtitle">
+                            Cliquez sur un client pour vous connecter.
+                        </span>
+                    </div>
+                </div>
+
+                <div className="fo-card__body fo-card__body--flush">
+                    {isLoading ? (
+                        <p className="fo-status fo-status--loading">Chargement des clients…</p>
+                    ) : customers.length === 0 ? (
+                        <p className="fo-empty">Aucun client disponible.</p>
+                    ) : (
+                        <table className="fo-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Prénom</th>
+                                    <th>Nom</th>
+                                    <th>Email</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {customers.map((customer) => (
+                                    <FOUserRow
+                                        key={customer.id}
+                                        customer={customer}
+                                        onClick={() => connectCustomer(customer)}
+                                    />
+                                ))}
+                            </tbody>
+                        </table>
+                    )}
+                </div>
+            </div>
+
+            <p className="fo-login__footer">Une seule session active à la fois.</p>
+        </section>
+    );
 }
 
 export default FOUserList;

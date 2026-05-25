@@ -1,0 +1,119 @@
+/* Top horizontal navbar — storefront-style nav. */
+
+.fo-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    width: 100%;
+    height: var(--fo-navbar-h);
+    background: var(--fo-navbar-bg);
+    color: var(--fo-navbar-fg);
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 0 32px;
+    border-bottom: 1px solid var(--fo-navbar-divider);
+}
+
+.fo-navbar__brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-right: 24px;
+    border-right: 1px solid var(--fo-navbar-divider);
+    min-height: var(--fo-navbar-h);
+}
+
+.fo-navbar__brand-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--fo-accent);
+    color: #fff;
+    font-family: var(--fo-font-serif);
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 3px;
+}
+
+.fo-navbar__brand-name {
+    font-family: var(--fo-font-serif);
+    font-size: 17px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--fo-bg);
+}
+
+.fo-navbar__nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+}
+
+.fo-navbar__link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    color: var(--fo-navbar-fg-muted) !important;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 9px 14px;
+    border-radius: 3px;
+    transition: background-color 120ms ease, color 120ms ease;
+    text-decoration: none;
+}
+
+.fo-navbar__link:hover {
+    background: var(--fo-navbar-hover);
+    color: var(--fo-bg) !important;
+}
+
+.fo-navbar__link.is-active {
+    color: var(--fo-bg) !important;
+    background: var(--fo-navbar-hover);
+}
+
+.fo-navbar__link.is-active::after {
+    content: "";
+    position: absolute;
+    left: 14px;
+    right: 14px;
+    bottom: 4px;
+    height: 2px;
+    background: var(--fo-accent);
+}
+
+.fo-navbar__spacer {
+    flex: 1;
+}
+
+.fo-navbar__actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+}
+
+.fo-navbar button.fo-navbar__logout {
+    background: transparent;
+    border: 1px solid rgba(216, 210, 196, 0.18);
+    color: var(--fo-navbar-fg);
+    padding: 7px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: var(--fo-font-sans);
+    min-height: auto;
+    transition: all 120ms ease;
+}
+
+.fo-navbar button.fo-navbar__logout:hover {
+    background: var(--fo-danger);
+    color: #fff;
+    border-color: var(--fo-danger);
+}

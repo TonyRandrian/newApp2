@@ -1,0 +1,318 @@
+/* Main content + reusable layout primitives — mirrors backoffice structures. */
+
+.fo-main {
+    flex: 1;
+    min-width: 0;
+    padding: 40px 48px 80px;
+    max-width: 1320px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* ------- Page wrapper --------------------------------------------------- */
+
+.fo-page {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.fo-page__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 16px;
+    padding-bottom: 18px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid var(--fo-border);
+}
+
+.fo-page__heading {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.fo-page__eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--fo-accent);
+}
+
+.fo-page__title {
+    font-family: var(--fo-font-serif);
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--fo-ink);
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.fo-page__subtitle {
+    color: var(--fo-muted);
+    font-size: 13px;
+    max-width: 70ch;
+}
+
+.fo-page__actions {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.fo-page__body {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* ------- Card ----------------------------------------------------------- */
+
+.fo-card {
+    background: var(--fo-surface);
+    border: 1px solid var(--fo-border);
+    border-radius: var(--fo-radius-lg);
+    box-shadow: var(--fo-shadow-sm);
+    overflow: hidden;
+}
+
+.fo-card__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--fo-line);
+    background: var(--fo-surface-alt);
+}
+
+.fo-card__heading {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.fo-card__title {
+    font-family: var(--fo-font-serif);
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--fo-ink);
+    letter-spacing: 0;
+    margin: 0;
+}
+
+.fo-card__subtitle {
+    font-size: 12px;
+    color: var(--fo-muted);
+}
+
+.fo-card__actions {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.fo-card__body {
+    padding: 22px 24px;
+}
+
+.fo-card__body--flush {
+    padding: 0;
+}
+
+.fo-card__footer {
+    padding: 14px 24px;
+    border-top: 1px solid var(--fo-line);
+    background: var(--fo-surface-alt);
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+/* ------- Filters bar ---------------------------------------------------- */
+
+.fo-filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 14px 18px;
+}
+
+.fo-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 160px;
+}
+
+.fo-filter__label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--fo-muted);
+}
+
+.fo-filters__actions {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/* ------- Totals (cart summary) ----------------------------------------- */
+
+.fo-totals {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 18px 24px;
+    background: var(--fo-surface-alt);
+    border-top: 1px solid var(--fo-line);
+}
+
+.fo-totals__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    color: var(--fo-ink-soft);
+    font-size: 13px;
+}
+
+.fo-totals__row--main {
+    margin-top: 6px;
+    padding-top: 10px;
+    border-top: 1px solid var(--fo-line);
+    color: var(--fo-ink);
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.fo-totals__label {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 11px;
+    color: var(--fo-muted);
+    font-weight: 600;
+}
+
+.fo-totals__value {
+    font-family: var(--fo-font-serif);
+}
+
+/* ------- Banner --------------------------------------------------------- */
+
+.fo-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 18px;
+    border-radius: var(--fo-radius-lg);
+    border-left: 3px solid var(--fo-border-strong);
+    background: var(--fo-surface-alt);
+    color: var(--fo-ink-soft);
+    font-size: 13px;
+}
+
+.fo-banner__title {
+    font-weight: 600;
+    color: var(--fo-ink);
+    margin-right: 4px;
+}
+
+.fo-banner--success {
+    background: #f0f5f1;
+    border-left-color: var(--fo-success);
+    color: #1e3f2c;
+}
+
+.fo-banner--error {
+    background: #fdf3ef;
+    border-left-color: var(--fo-danger);
+    color: var(--fo-danger);
+}
+
+.fo-banner--info {
+    background: var(--fo-accent-soft);
+    border-left-color: var(--fo-accent);
+    color: var(--fo-accent-hover);
+}
+
+/* ------- Status / empty / loading text --------------------------------- */
+
+.fo-status {
+    color: var(--fo-muted);
+    font-size: 13px;
+    padding: 6px 0;
+}
+
+.fo-status--loading::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--fo-accent);
+    margin-right: 10px;
+    vertical-align: middle;
+    animation: fo-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes fo-pulse {
+    0%, 100% { opacity: 0.35; transform: scale(0.85); }
+    50% { opacity: 1; transform: scale(1); }
+}
+
+.fo-empty {
+    padding: 40px 24px;
+    text-align: center;
+    color: var(--fo-muted);
+    font-size: 13px;
+}
+
+/* ------- Tabs (mode switcher) ------------------------------------------ */
+
+.fo-tabs {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px;
+    background: var(--fo-surface-alt);
+    border: 1px solid var(--fo-border);
+    border-radius: var(--fo-radius-lg);
+}
+
+.fo-app .fo-tabs button {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--fo-muted);
+    padding: 6px 14px;
+    min-height: 30px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-radius: var(--fo-radius);
+}
+
+.fo-app .fo-tabs button:hover {
+    background: var(--fo-bg-soft);
+    border-color: var(--fo-border);
+    color: var(--fo-ink-soft);
+}
+
+.fo-app .fo-tabs button.is-active {
+    background: var(--fo-surface);
+    border-color: var(--fo-border-strong);
+    color: var(--fo-ink);
+}

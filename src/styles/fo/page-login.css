@@ -1,0 +1,73 @@
+/* FO login / customer chooser screen. */
+
+.fo-app--login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding: 64px 24px;
+    background:
+        radial-gradient(circle at 15% 15%, rgba(31, 75, 80, 0.05), transparent 45%),
+        radial-gradient(circle at 85% 85%, rgba(122, 46, 30, 0.04), transparent 50%),
+        var(--fo-bg);
+}
+
+.fo-login {
+    width: 100%;
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.fo-login__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+}
+
+.fo-login__eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--fo-accent);
+}
+
+.fo-login__title {
+    font-family: var(--fo-font-serif);
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--fo-ink);
+    margin: 0;
+}
+
+.fo-login__title::after {
+    content: "";
+    display: block;
+    width: 36px;
+    height: 1px;
+    background: var(--fo-accent);
+    margin: 14px auto 0;
+}
+
+.fo-login__subtitle {
+    color: var(--fo-muted);
+    font-size: 13px;
+}
+
+.fo-login__actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.fo-login__footer {
+    text-align: center;
+    color: var(--fo-faint);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+}

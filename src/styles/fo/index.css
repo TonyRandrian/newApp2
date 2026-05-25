@@ -1,0 +1,17 @@
+/* Frontoffice stylesheet entry point.
+   Order matters: tokens first, then base, then components, then pages, then responsive. */
+
+@import "./tokens.css";
+@import "./base.css";
+
+@import "./navbar.css";
+@import "./layout.css";
+
+@import "./forms.css";
+@import "./buttons.css";
+@import "./tables.css";
+
+@import "./page-login.css";
+@import "./page-product.css";
+
+@import "./responsive.css";
