@@ -5,6 +5,7 @@ import MyOrderState from "../entities/MyOrderState";
 import OrderState from "../entities/OrderState";
 import OrderPayload from "../dto/OrderPayload";
 import StockAvailable from "../entities/StockAvailable";
+import Product from "../entities/Product";
 import { ensureLocalDateTime } from "../utils/utils"
 import Cart from "../entities/Cart";
 import CartService from "./CartService";
@@ -187,13 +188,32 @@ const createOrderFromCart = async (cart, customerId, date, clone = 0) => {
     const stockErrors = await checkCartStock(cart.cartRows, totalOrders)
 
     if (stockErrors.length > 0) {
-        const message = stockErrors
-            .map(item =>
-                `product ${item.productId} attr ${item.productAttributeId}: ${item.requested} > ${item.available}`
-            )
-            .join("; ")
+        const productApi = new Product({}, false)
+        const nameCache = new Map()
+        const enrichedErrors = []
+        for (const item of stockErrors) {
+            let productName = ""
+            if (nameCache.has(item.productId)) {
+                productName = nameCache.get(item.productId)
+            } else {
+                try {
+                    const product = await productApi.getById(item.productId)
+                    productName = Product.pickLang(product?.name) || `#${item.productId}`
+                } catch (err) {
+                    productName = `#${item.productId}`
+                }
+                nameCache.set(item.productId, productName)
+            }
+            enrichedErrors.push({ ...item, productName })
+        }
 
-        throw new Error(`Stock insuffisant: ${message}`)
+        const message = enrichedErrors
+            .map(item => `${item.productName} : demandé ${item.requested}, disponible ${item.available}`)
+            .join(" ; ")
+
+        const error = new Error(`Stock insuffisant — ${message}`)
+        error.stockErrors = enrichedErrors
+        throw error
     }
 
     const customerApi = new Customer({}, false)

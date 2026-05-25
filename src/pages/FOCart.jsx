@@ -12,6 +12,7 @@ function FOCart() {
     const [cart, setCart] = useState(null);
     const [rowDetails, setRowDetails] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [banner, setBanner] = useState(null);
 
     const [user] = useLocalStorage("user", null);
     const [isGuest] = useLocalStorage("isGuest", false);
@@ -139,18 +140,34 @@ function FOCart() {
             return;
         }
 
+        setBanner(null);
         try {
             const result =
                 await OderService.createOrderFromCart(cart, user.id, new Date(),0);
             console.log(result);
-            alert(
-                "Commande créée avec succès !"
-            );
+            setBanner({
+                type: "success",
+                title: "Commande créée",
+                message: "Commande créée avec succès !"
+            });
         } catch (error) {
             console.error(error);
-            alert(
-                "Erreur lors de la création."
-            );
+            if (error?.stockErrors?.length) {
+                const lines = error.stockErrors.map(item =>
+                    `${item.productName} : demandé ${item.requested}, disponible ${item.available}`
+                );
+                setBanner({
+                    type: "error",
+                    title: "Stock insuffisant",
+                    message: lines.join(" ; ")
+                });
+            } else {
+                setBanner({
+                    type: "error",
+                    title: "Erreur",
+                    message: error?.message || "Erreur lors de la création."
+                });
+            }
         }
     };
 
@@ -304,6 +321,13 @@ function FOCart() {
                     </button>
                 </div>
             </header>
+
+            {banner ? (
+                <div className={`fo-banner fo-banner--${banner.type}`}>
+                    <span className="fo-banner__title">{banner.title}</span>
+                    <span>{banner.message}</span>
+                </div>
+            ) : null}
 
             <div className="fo-card">
                 <div className="fo-card__head">

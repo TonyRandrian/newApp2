@@ -155,13 +155,21 @@ function FOGuestCheckout() {
             setError("Panier ou client introuvable");
             return;
         }
+        setError("");
         const dateNow = new Date();
         OderService.createOrderFromCart(cart, user.id, dateNow, 0).then(() => {
             alert("Commande créée avec succès !");
             navigate("/fo/orders");
         }).catch((err) => {
             console.error("Error creating order: ", err);
-            setError("Erreur lors de la creation de la commande");
+            if (err?.stockErrors?.length) {
+                const lines = err.stockErrors.map(item =>
+                    `${item.productName} : demandé ${item.requested}, disponible ${item.available}`
+                );
+                setError(`Stock insuffisant — ${lines.join(" ; ")}`);
+            } else {
+                setError(err?.message || "Erreur lors de la creation de la commande");
+            }
         });
     };
 

@@ -18,6 +18,7 @@ function FOOrderList() {
     const [orders, setOrders] = useState([])
     const [carts, setCarts] = useState([])
     const [isLoading, setIsLoading] = useState(false)
+    const [banner, setBanner] = useState(null)
     const [user] = useLocalStorage("user", null)
     const [edit, setEdit] = useState({
         orderId: null,
@@ -38,14 +39,35 @@ function FOOrderList() {
     }
 
     const handleClick = async (orderId) => {
+        setBanner(null)
         try {
             await orderService.duplicateCart(orderId, edit?.multiplicateur ?? 1, edit?.dateUpdate || formatDateInput(new Date()))
+
+            const userId = user?.id || 0
+            const [nextOrders, nextCarts] = await Promise.all([
+                getOrdersByCustomer(userId),
+                getCartsByCustomer(userId),
+            ])
+            setOrders(nextOrders)
+            setCarts(nextCarts)
+
+            setBanner({
+                type: "success",
+                title: "Panier dupliqué",
+                message: "Le panier a bien été créé à partir de la commande.",
+            })
         } catch (error) {
             console.log("Erreur lors de la duplication du panier de la commande", error)
+            setBanner({
+                type: "error",
+                title: "Erreur",
+                message: error?.message || "Erreur lors de la duplication du panier.",
+            })
         }
     }
 
     const handleCommanderClick = async (cartId) => {
+        setBanner(null)
         try {
             const commandDate = edit?.cartId === cartId
                 ? (edit?.cartDateOrder || formatDateInput(new Date()))
@@ -62,8 +84,29 @@ function FOOrderList() {
             setOrders(nextOrders)
             setCarts(nextCarts)
             setEdit({ orderId: null, multiplicateur: 1, dateUpdate: "", cartId: null, cartDateOrder: "" })
+            setBanner({
+                type: "success",
+                title: "Commande créée",
+                message: "La commande a été créée à partir du panier.",
+            })
         } catch (error) {
             console.error("Erreur création commande depuis panier", error)
+            if (error?.stockErrors?.length) {
+                const lines = error.stockErrors.map(item =>
+                    `${item.productName} : demandé ${item.requested}, disponible ${item.available}`
+                )
+                setBanner({
+                    type: "error",
+                    title: "Stock insuffisant",
+                    message: lines.join(" ; "),
+                })
+            } else {
+                setBanner({
+                    type: "error",
+                    title: "Erreur",
+                    message: error?.message || "Erreur lors de la création de la commande.",
+                })
+            }
         }
     }
 
@@ -112,6 +155,13 @@ function FOOrderList() {
                     </p>
                 </div>
             </header>
+
+            {banner ? (
+                <div className={`fo-banner fo-banner--${banner.type}`}>
+                    <span className="fo-banner__title">{banner.title}</span>
+                    <span>{banner.message}</span>
+                </div>
+            ) : null}
 
             <div className="fo-page__body">
                 {isLoading ? (
