@@ -252,7 +252,9 @@ const getCartTotals = (cart) => {
         const qty = Number(row?.quantity || 0);
         const baseTtc = Number(row?.baseTtcPrice || 0);
         const taxRate = Number(row?.taxRate || 0);
-        const impact = Number(row?.selectedOptionImpact || 0);
+        const selectedId = Number(row?.selectedOptionId || 0);
+        const selected = (row?.options || []).find((value) => Number(value.id) === selectedId);
+        const impact = selected ? Number(selected.priceImpact || 0) : 0;
         const divisor = 1 + taxRate / 100;
         const baseHt = divisor ? baseTtc / divisor : 0;
 
