@@ -5,7 +5,7 @@ import StockMvt from "../backend/entities/StockMvt.js";
 import {formatDateTime} from "../backend/utils/utils.js";
 import {MaterialReactTable, useMaterialReactTable} from "material-react-table";
 
-function BOStockUpdate({setCombination, setProductDetails}) {
+function BOStockUpdate({setCombination, setProductDetails, onLoadingChange}) {
     const [data, setData] = useState([])
     const [quantity, setQuantity] = useState({})
     const [dateChange, setDateChange] = useState("")
@@ -25,14 +25,17 @@ function BOStockUpdate({setCombination, setProductDetails}) {
     useEffect(() => {
         const loadProducts = async () => {
             try {
+                onLoadingChange?.(true)
                 return await fetchProductWithStock();
             } catch (error) {
                 console.error("Erreur lors de la récupération des produits avec stocks: " + error)
+            } finally {
+                onLoadingChange?.(false)
             }
         }
 
         loadProducts().then(result => setData(result ?? []))
-    }, []);
+    }, [onLoadingChange]);
 
     // transformation des données pour intégrer les déclinaisons comme sous-lignes
     // ilay clé subRow convention
@@ -121,6 +124,7 @@ function BOStockUpdate({setCombination, setProductDetails}) {
         const delta = amount * MVT_REASON.sign
 
         try {
+            onLoadingChange?.(true)
             const stockApi = new StockAvailable({}, false)
             const existing = await stockApi.getByProductAndAttribute(idProduct, idProductAttribute)
 
@@ -160,6 +164,8 @@ function BOStockUpdate({setCombination, setProductDetails}) {
             })
         } catch (error) {
             console.error("Erreur lors de la mise à jour du stock:", error)
+        } finally {
+            onLoadingChange?.(false)
         }
     }
 

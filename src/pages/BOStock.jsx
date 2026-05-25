@@ -7,6 +7,10 @@ function BOStock() {
     const [combination, setCombination] = useState([])
     // les produits avec détails qui sera passé entre les composants pour éviter les requêtes à chaque appel
     const [productDetails, setProductDetails] = useState([])
+    const [isUpdateLoading, setIsUpdateLoading] = useState(true)
+    const [isEvolutionLoading, setIsEvolutionLoading] = useState(true)
+
+    const isLoading = isUpdateLoading || isEvolutionLoading
 
     return (
         <div className="bo-page">
@@ -20,9 +24,19 @@ function BOStock() {
                 </div>
             </header>
 
+            {isLoading && <p className="bo-status bo-status--loading">Chargement des stocks…</p>}
+
             <div className="bo-page__body">
-                <BOStockUpdate setCombination={setCombination} setProductDetails={setProductDetails}/>
-                <BOStockEvolution combination={combination} productDetails={productDetails}/>
+                <BOStockUpdate
+                    setCombination={setCombination}
+                    setProductDetails={setProductDetails}
+                    onLoadingChange={setIsUpdateLoading}
+                />
+                <BOStockEvolution
+                    combination={combination}
+                    productDetails={productDetails}
+                    onLoadingChange={setIsEvolutionLoading}
+                />
             </div>
         </div>
     )

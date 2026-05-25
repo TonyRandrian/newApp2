@@ -2,7 +2,7 @@ import {useEffect, useMemo, useState} from "react";
 import {getDailyMovement} from "../backend/services/StockMvtService.js";
 import {MaterialReactTable, useMaterialReactTable} from "material-react-table";
 
-function BOStockEvolution({combination, productDetails}) {
+function BOStockEvolution({combination, productDetails, onLoadingChange}) {
     const [productsData, setProductsData] = useState([])
     const [dateFrom, setDateFrom] = useState("")
     const [dateTo, setDateTo] = useState("")
@@ -13,15 +13,18 @@ function BOStockEvolution({combination, productDetails}) {
     useEffect(() => {
         const loadMovements = async () => {
             try {
+                onLoadingChange?.(true)
                 const data = await getDailyMovement(productId, productAttributeId, productDetails);
                 setProductsData(data)
             } catch (error) {
                 console.log("ERREUR LORS DE LA RECUPERATION DES MOUVEMENTS: " + error)
+            } finally {
+                onLoadingChange?.(false)
             }
         }
 
         loadMovements().then(r => console.log(r))
-    }, [productId, productAttributeId, productDetails]);
+    }, [productId, productAttributeId, productDetails, onLoadingChange]);
 
     // filtrage des lignes par plage de dates (les bornes sont incluses).
     // les dates sont au format "YYYY-MM-DD", la comparaison lexicographique fait office de comparaison chronologique.
