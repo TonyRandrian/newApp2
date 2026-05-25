@@ -333,6 +333,39 @@ function BOStatistic() {
                     <div className="bo-card">
                         <div className="bo-card__head">
                             <div className="bo-card__heading">
+                                <h3 className="bo-card__title">Indicateurs clés</h3>
+                                <span className="bo-card__subtitle">Synthèse des ventes, achats et bénéfices sur la période</span>
+                            </div>
+                        </div>
+                        <div className="bo-card__body bo-card__body--flush">
+                            <div className="bo-kpis">
+                                <div className="bo-kpi">
+                                    <span className="bo-kpi__label">Ventes (Commandes)</span>
+                                    <strong className="bo-kpi__value">{formatNumber(orderCategoryTotals.totalVente)}</strong>
+                                </div>
+                                <div className="bo-kpi">
+                                    <span className="bo-kpi__label">Achats (Commandes)</span>
+                                    <strong className="bo-kpi__value">{formatNumber(orderCategoryTotals.totalAchat)}</strong>
+                                </div>
+                                <div className="bo-kpi">
+                                    <span className="bo-kpi__label">Achats (Stock)</span>
+                                    <strong className="bo-kpi__value">{formatNumber(orderCategoryFromStockTotal.totalAchat)}</strong>
+                                </div>
+                                <div className="bo-kpi">
+                                    <span className="bo-kpi__label">Bénéfice (Commandes)</span>
+                                    <strong className="bo-kpi__value">{formatNumber(orderCategoryTotals.benefice)}</strong>
+                                </div>
+                                <div className="bo-kpi">
+                                    <span className="bo-kpi__label">Bénéfice (Stock)</span>
+                                    <strong className="bo-kpi__value">{formatNumber(orderCategoryFromStockTotal.benefice)}</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="bo-card">
+                        <div className="bo-card__head">
+                            <div className="bo-card__heading">
                                 <h3 className="bo-card__title">Ventes par catégorie</h3>
                                 <span className="bo-card__subtitle">Coût calculé depuis les lignes de commande</span>
                             </div>
