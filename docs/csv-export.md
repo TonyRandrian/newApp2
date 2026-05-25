@@ -246,7 +246,173 @@ const allOrdersCsvColumns = useMemo(() => [
 
 ---
 
-## 3. Application aux autres pages
+## 3. Manipulation des données avant export
+
+La transformation se fait **par colonne**, dans le champ `format` (et/ou via
+un `accessor` fonctionnel) — pas dans le helper `buildCsvContent` qui reste
+générique. Cela permet à chaque page de décider précisément comment chaque
+colonne sort, sans dupliquer la logique de sérialisation.
+
+L'ordre d'exécution pour chaque cellule :
+
+```
+row  ──▶  accessor(row)  ──▶  format(value, row)  ──▶  cellule CSV
+       (clé OU fonction)    (optionnel, transforme)
+```
+
+`format` reçoit deux arguments : la valeur extraite par `accessor`, **et** la
+ligne complète (utile pour combiner plusieurs champs).
+
+### 3.1 Ajouter un préfixe / suffixe
+
+```jsx
+// "42" → "ps_42"  (préfixer un identifiant)
+{ header: "Référence",
+  accessor: "id",
+  format: (v) => `ps_${v}` }
+
+// "tshirt-rouge" → "tshirt-rouge.csv-export"
+{ header: "Slug exporté",
+  accessor: "slug",
+  format: (v) => `${v}.csv-export` }
+```
+
+### 3.2 Concaténer plusieurs colonnes
+
+`format` reçoit la `row` complète en 2ᵉ argument :
+
+```jsx
+// "Jean" + "Dupont" → "Jean Dupont"
+{ header: "Nom complet",
+  accessor: "firstname",
+  format: (firstname, row) => `${firstname} ${row.lastname}`.trim() }
+
+// Plus propre : un accessor fonctionnel
+{ header: "Nom complet",
+  accessor: (row) => `${row.firstname} ${row.lastname}`.trim() }
+```
+
+Règle simple : si la valeur sort d'**un seul** champ, utiliser `accessor` en
+clé + `format`. Si elle dépend de **plusieurs** champs, utiliser un
+`accessor` fonctionnel.
+
+### 3.3 Formater les nombres et montants
+
+```jsx
+// 12.3456 → "12,35"  (Excel-FR)
+{ header: "Total TTC",
+  accessor: "totalPaidTaxIncl",
+  format: (v) => Number(v ?? 0).toFixed(2).replace(".", ",") }
+
+// 12.34 → "12.34 €"  (avec unité)
+{ header: "Montant",
+  accessor: "amount",
+  format: (v) => `${Number(v ?? 0).toFixed(2)} €` }
+
+// 0.15 → "15,0%"  (pourcentage)
+{ header: "TVA",
+  accessor: "taxRate",
+  format: (v) => `${(Number(v ?? 0) * 100).toFixed(1).replace(".", ",")}%` }
+```
+
+### 3.4 Formater les dates
+
+```jsx
+import { formatDateTime } from "../backend/utils/utils"
+
+// "2026-05-18T14:30:00" → "18/05/2026 14:30"
+{ header: "Date",
+  accessor: "dateAdd",
+  format: (v) => formatDateTime(v) || "" }
+
+// Date courte sans heure
+{ header: "Jour",
+  accessor: "dateAdd",
+  format: (v) => v ? new Date(v).toISOString().slice(0, 10) : "" }
+```
+
+### 3.5 Résoudre une valeur via un Map (jointure)
+
+Pour traduire un ID en libellé, **construire le Map en dehors** du tableau de
+colonnes pour éviter de reconstruire à chaque cellule :
+
+```jsx
+const stateLabelById = useMemo(
+    () => new Map(orderStates.map((s) => [Number(s.id), getOrderStateLabel(s)])),
+    [orderStates],
+)
+
+const csvColumns = useMemo(() => [
+    { header: "État",
+      accessor: "currentState",
+      format: (v) => stateLabelById.get(Number(v)) ?? `#${v}` },
+], [stateLabelById])
+```
+
+### 3.6 Conditionner la valeur
+
+```jsx
+// Booléen → "Oui"/"Non"
+{ header: "Validée",
+  accessor: "valid",
+  format: (v) => Number(v) === 1 ? "Oui" : "Non" }
+
+// Vide si non livrée
+{ header: "Date de livraison",
+  accessor: "deliveryDate",
+  format: (v, row) => Number(row.currentState) === 5 ? formatDateTime(v) : "" }
+```
+
+### 3.7 Échapper la valeur ? Non — déjà géré
+
+PapaParse échappe automatiquement guillemets, virgules et sauts de ligne.
+**Ne pas** entourer manuellement de `"` ni remplacer `"` par `""` dans
+`format` — vous casseriez le double-échappement.
+
+```jsx
+// ❌ NE PAS FAIRE
+format: (v) => `"${String(v).replace(/"/g, '""')}"`
+
+// ✅ Laisser la valeur brute, PapaParse s'occupe du reste
+format: (v) => String(v)
+```
+
+### 3.8 Filtrer ou ré-ordonner les lignes avant l'export
+
+Quand la manipulation porte sur **la collection** (et pas une cellule), faire
+la transformation côté page **avant** de passer `rows` au bouton :
+
+```jsx
+const csvRows = useMemo(() => {
+    return filteredRows
+        .filter((row) => Number(row.totalPaidTaxIncl) > 0)   // exclure les 0 €
+        .sort((a, b) => b.totalPaidTaxIncl - a.totalPaidTaxIncl)
+        .map((row) => ({
+            ...row,
+            referenceWithPrefix: `ps_${row.reference}`,       // pré-calculé
+        }))
+}, [filteredRows])
+
+<BOExportCsvButton rows={csvRows} columns={csvColumns} ... />
+```
+
+> Préférer pré-calculer dans un `useMemo` quand la transformation est lourde
+> (jointures, lookups) — ça évite de refaire le travail à chaque cellule.
+
+### 3.9 Anti-patrons à éviter
+
+- **Modifier `rows` en place** dans `format` (`row.foo = bar`). Toujours
+  retourner une nouvelle valeur ; `rows` reste la source affichée à l'écran.
+- **Faire des appels async dans `format`**. La sérialisation est synchrone.
+  Si vous avez besoin de données distantes, les charger en amont (dans
+  `loadDashboardData` ou un `useEffect`) et les exposer via un Map.
+- **Lire depuis le state React** dans `format` sans le déclarer en
+  dépendance du `useMemo` qui construit `csvColumns` → cellules figées sur
+  une ancienne valeur.
+
+---
+
+## 4. Application aux autres pages
 
 Le même patron s'applique sans changement à :
 
@@ -293,7 +459,7 @@ const csvColumns = [
 
 ---
 
-## 4. Alternative : export natif de MaterialReactTable
+## 5. Alternative : export natif de MaterialReactTable
 
 Toutes les pages utilisent `material-react-table`, qui propose nativement un
 bouton d'export via `MRT_ExportButton` + `mantine-react-table` ou via
@@ -313,7 +479,7 @@ nécessaire pour ce ticket.
 
 ---
 
-## 5. Format de sortie
+## 6. Format de sortie
 
 - **Séparateur** : virgule (`,`). PapaParse l'utilise par défaut. Si le
   besoin Excel-FR exige `;`, passer `{ delimiter: ";" }` à `Papa.unparse`.
@@ -328,7 +494,7 @@ nécessaire pour ce ticket.
 
 ---
 
-## 6. Tests manuels recommandés
+## 7. Tests manuels recommandés
 
 | Scénario | Attendu |
 |---|---|
@@ -342,7 +508,7 @@ nécessaire pour ce ticket.
 
 ---
 
-## 7. Améliorations possibles (hors v1)
+## 8. Améliorations possibles (hors v1)
 
 - **Sélecteur de séparateur** dans l'UI (`,` vs `;`) si l'usage Excel-FR est
   fréquent.
