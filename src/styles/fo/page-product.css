@@ -63,6 +63,27 @@
     font-variant-numeric: tabular-nums;
 }
 
+.fo-product__price-label {
+    font-family: var(--fo-font-sans, inherit);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--fo-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-left: 4px;
+}
+
+.fo-product__price-ht {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--fo-muted);
+    margin-top: 2px;
+}
+
+.fo-product__price-ht .fo-product__price-label {
+    font-size: 11px;
+}
+
 .fo-product__badge {
     display: inline-block;
     align-self: flex-start;

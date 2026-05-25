@@ -65,6 +65,7 @@ function FOProductPreview() {
     };
 
     const displayedPrice = getDisplayedPrice(ttcPrice, tax, selectedDeclinaison);
+    const displayedHtPrice = displayedPrice / (1 + (Number(tax) || 0) / 100);
 
     useEffect(() => {
         const loadProduct = async () => {
@@ -161,7 +162,10 @@ function FOProductPreview() {
                     <span className="fo-product__reference">Réf. {product.reference}</span>
 
                     <div className="fo-product__price">
-                        {displayedPrice.toFixed(2)} €
+                        {displayedPrice.toFixed(2)} € <span className="fo-product__price-label">TTC</span>
+                        <div className="fo-product__price-ht">
+                            {displayedHtPrice.toFixed(2)} € <span className="fo-product__price-label">HT</span>
+                        </div>
                     </div>
 
                     <div className="fo-product__meta">
