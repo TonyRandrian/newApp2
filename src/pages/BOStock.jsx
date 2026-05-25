@@ -8,14 +8,24 @@ function BOStock() {
     // les produits avec détails qui sera passé entre les composants pour éviter les requêtes à chaque appel
     const [productDetails, setProductDetails] = useState([])
 
-    return <div>
-        <section>
-            <BOStockUpdate setCombination={setCombination} setProductDetails={setProductDetails}/>
-        </section>
-        <section>
-            <BOStockEvolution combination={combination} productDetails={productDetails}/>
-        </section>
-    </div>
+    return (
+        <div className="bo-page">
+            <header className="bo-page__head">
+                <div className="bo-page__heading">
+                    <span className="bo-page__eyebrow">Catalogue</span>
+                    <h1 className="bo-page__title">Gestion des stocks</h1>
+                    <p className="bo-page__subtitle">
+                        Ajustez les quantités et consultez l'évolution journalière des mouvements de stock.
+                    </p>
+                </div>
+            </header>
+
+            <div className="bo-page__body">
+                <BOStockUpdate setCombination={setCombination} setProductDetails={setProductDetails}/>
+                <BOStockEvolution combination={combination} productDetails={productDetails}/>
+            </div>
+        </div>
+    )
 }
 
 export default BOStock;

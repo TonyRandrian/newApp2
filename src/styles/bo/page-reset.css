@@ -1,59 +1,80 @@
-/* BOReset — checklist of resources with select-all / validate buttons. */
+/* BOReset — class-based checklist of resources. */
 
-.bo-main > div:has(> div > input[type="checkbox"]) {
+.bo-checklist {
     background: var(--bo-surface);
     border: 1px solid var(--bo-border);
     border-radius: var(--bo-radius-lg);
-    padding: 8px 0;
     box-shadow: var(--bo-shadow-sm);
+    overflow: hidden;
 }
 
-.bo-main > div:has(> div > input[type="checkbox"]) > div {
+.bo-checklist__list {
+    display: flex;
+    flex-direction: column;
+}
+
+.bo-checklist__row {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     padding: 12px 24px;
     border-bottom: 1px solid var(--bo-line);
+    transition: background-color 120ms ease;
 }
 
-.bo-main > div:has(> div > input[type="checkbox"]) > div:last-of-type {
+.bo-checklist__row:hover {
+    background: var(--bo-surface-alt);
+}
+
+.bo-checklist__row:last-child {
     border-bottom: none;
 }
 
-.bo-main > div:has(> div > input[type="checkbox"]) > div > label {
-    flex-direction: row;
-    align-items: center;
-    text-transform: none;
-    letter-spacing: 0;
-    font-size: 13px;
-    font-weight: 400;
-    color: var(--bo-ink-soft);
+.bo-checklist__label {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
     cursor: pointer;
+    flex: 1;
+    min-width: 0;
 }
 
-.bo-main > div:has(> div > input[type="checkbox"]) > button {
-    margin: 16px 12px 12px;
+.bo-checklist__key {
+    font-family: var(--bo-font-mono);
+    font-size: 12px;
+    color: var(--bo-accent);
+    background: var(--bo-accent-soft);
+    padding: 2px 8px;
+    border-radius: var(--bo-radius);
+    flex-shrink: 0;
 }
 
-.bo-main > div:has(> div > input[type="checkbox"]) > button:first-of-type {
-    background: var(--bo-surface);
+.bo-checklist__desc {
+    font-size: 13px;
     color: var(--bo-ink-soft);
-    border-color: var(--bo-border-strong);
 }
 
-.bo-main > div:has(> div > input[type="checkbox"]) > button:first-of-type:hover {
-    background: var(--bo-bg-soft);
+.bo-checklist__footer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 24px;
+    background: var(--bo-surface-alt);
+    border-top: 1px solid var(--bo-line);
+}
+
+.bo-checklist__count {
+    color: var(--bo-muted);
+    font-size: 12px;
+}
+
+.bo-checklist__count strong {
     color: var(--bo-ink);
-    border-color: var(--bo-ink);
+    font-weight: 600;
 }
 
-.bo-main > div:has(> div > input[type="checkbox"]) > button:last-of-type {
-    background: var(--bo-danger);
-    border-color: var(--bo-danger);
-    color: #fff;
-}
-
-.bo-main > div:has(> div > input[type="checkbox"]) > button:last-of-type:hover {
-    background: var(--bo-danger-hover);
-    border-color: var(--bo-danger-hover);
+.bo-checklist__actions {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
 }

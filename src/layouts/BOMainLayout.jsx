@@ -39,9 +39,9 @@ function BOMainLayout() {
 
                     <span className="bo-sidebar__section">Catalogue</span>
                     <Link to={"/stocks"} className="bo-sidebar__link">Stocks</Link>
-                    <Link to={"/import"} className="bo-sidebar__link">Import</Link>
 
                     <span className="bo-sidebar__section">Système</span>
+                    <Link to={"/import"} className="bo-sidebar__link">Import</Link>
                     <Link to={"/reset"} className="bo-sidebar__link">Reset</Link>
                 </nav>
 

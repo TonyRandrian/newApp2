@@ -13,25 +13,39 @@
         var(--bo-bg);
 }
 
-.bo-app--login > div {
+.bo-login {
     width: 100%;
     max-width: 420px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    gap: 24px;
 }
 
-.bo-app--login h1 {
-    font-family: var(--bo-font-serif);
-    font-size: 30px;
-    font-weight: 500;
-    margin-bottom: 28px;
-    padding-bottom: 0;
-    border-bottom: none;
+.bo-login__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
     text-align: center;
 }
 
-.bo-app--login h1::after {
+.bo-login__eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--bo-accent);
+}
+
+.bo-login__title {
+    font-family: var(--bo-font-serif);
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--bo-ink);
+    margin: 0;
+}
+
+.bo-login__title::after {
     content: "";
     display: block;
     width: 36px;
@@ -40,11 +54,15 @@
     margin: 14px auto 0;
 }
 
-.bo-app--login form {
+.bo-login__subtitle {
+    color: var(--bo-muted);
+    font-size: 13px;
+}
+
+.bo-login__form {
     display: flex;
     flex-direction: column;
-    gap: 14px;
-    width: 100%;
+    gap: 16px;
     background: var(--bo-surface);
     border: 1px solid var(--bo-border);
     padding: 32px 28px;
@@ -52,17 +70,17 @@
     box-shadow: var(--bo-shadow-lg);
 }
 
-.bo-app--login form input {
+.bo-login__form input {
     width: 100%;
 }
 
-.bo-app--login form button {
+.bo-login__form button {
     margin-top: 8px;
-    background: var(--bo-accent);
-    border-color: var(--bo-accent);
 }
 
-.bo-app--login form button:hover {
-    background: var(--bo-accent-hover);
-    border-color: var(--bo-accent-hover);
+.bo-login__footer {
+    text-align: center;
+    color: var(--bo-faint);
+    font-size: 11px;
+    letter-spacing: 0.04em;
 }

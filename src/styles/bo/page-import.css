@@ -1,53 +1,83 @@
-/* BOImport — single form with file inputs, an error banner and a JSON result block. */
+/* BOImport — file upload form with grouped fields. */
 
-.bo-main > form {
-    background: var(--bo-surface);
-    border: 1px solid var(--bo-border);
-    border-radius: var(--bo-radius-lg);
-    padding: 32px;
-    box-shadow: var(--bo-shadow-sm);
-    max-width: 720px;
+.bo-import {
+    max-width: 760px;
     margin: 0 auto;
+    width: 100%;
 }
 
-.bo-main > form > div {
+.bo-import__form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 0;
 }
 
-.bo-main > form label {
+.bo-import__fields {
+    display: flex;
     flex-direction: column;
-    gap: 8px;
-    padding-bottom: 16px;
+}
+
+.bo-import__field {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px 0;
     border-bottom: 1px dashed var(--bo-line);
 }
 
-.bo-main > form label:has(input[type="checkbox"]) {
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
+.bo-import__field:last-child {
+    border-bottom: none;
 }
 
-.bo-main > form p {
+.bo-import__field-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.bo-import__field-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--bo-ink);
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+.bo-import__field-hint {
     font-size: 12px;
     color: var(--bo-muted);
-    font-style: italic;
 }
 
-.bo-main > form > p {
-    margin-top: 16px;
-    padding: 12px 14px;
-    background: #fdf3ef;
-    border-left: 3px solid var(--bo-danger);
-    color: var(--bo-danger);
-    font-style: normal;
-    font-size: 13px;
-    border-radius: var(--bo-radius);
+.bo-import__field-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
 }
 
-.bo-main > form > pre {
-    margin-top: 16px;
+.bo-import__toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--bo-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+}
+
+.bo-import__submit {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.bo-import__result pre {
     max-height: 360px;
+    border: none;
+    border-radius: 0;
+    padding: 20px 24px;
+    background: var(--bo-surface);
+    margin: 0;
 }

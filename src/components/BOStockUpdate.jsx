@@ -88,14 +88,14 @@ function BOStockUpdate({setCombination, setProductDetails}) {
         {
             header: "Actions",
             Cell: ({row}) => (
-                <div>
-                    <button onClick={() => updateQuantity(row, ID_MVT_REASON.AUGMENTATION)}>
+                <div className="bo-stock-actions">
+                    <button className="bo-btn--ghost bo-btn--sm" onClick={() => updateQuantity(row, ID_MVT_REASON.AUGMENTATION)}>
                         Ajouter
                     </button>
-                    <button onClick={() => updateQuantity(row, ID_MVT_REASON.DIMINUTION)}>
+                    <button className="bo-btn--ghost bo-btn--sm" onClick={() => updateQuantity(row, ID_MVT_REASON.DIMINUTION)}>
                         Retirer
                     </button>
-                    <button onClick={() => {
+                    <button className="bo-btn--primary bo-btn--sm" onClick={() => {
                         const isDeclination = Boolean(row.original?.isDeclination)
                         const product = isDeclination ? row.original.parentProduct : row.original.product
                         const idProductAttribute = isDeclination ? (row.original.combinationId ?? 0) : 0
@@ -103,7 +103,7 @@ function BOStockUpdate({setCombination, setProductDetails}) {
                         setProductDetails(row.original)
                         setCombination([product.id, idProductAttribute])
                     }}>
-                        Voir évolution
+                        Voir l'évolution
                     </button>
                 </div>
             ),
@@ -176,22 +176,29 @@ function BOStockUpdate({setCombination, setProductDetails}) {
         paginateExpandedRows: false,
     })
 
-    return <>
-        <header>
-            <h5>Mise à jour des stocks</h5>
-        </header>
-        <div>
-            <label>
-                Date de changement
-                <input
-                    type={"date"}
-                    value={dateChange}
-                    onChange={(e) => setDateChange(e.target.value)}
-                />
-            </label>
+    return (
+        <div className="bo-card">
+            <div className="bo-card__head">
+                <div className="bo-card__heading">
+                    <h3 className="bo-card__title">Mise à jour des stocks</h3>
+                    <span className="bo-card__subtitle">Saisissez une quantité, puis appliquez un ajout, un retrait, ou consultez l'évolution.</span>
+                </div>
+                <div className="bo-card__actions">
+                    <label className="bo-filter">
+                        <span className="bo-filter__label">Date du mouvement</span>
+                        <input
+                            type={"date"}
+                            value={dateChange}
+                            onChange={(e) => setDateChange(e.target.value)}
+                        />
+                    </label>
+                </div>
+            </div>
+            <div className="bo-card__body bo-card__body--flush">
+                <MaterialReactTable table={table}/>
+            </div>
         </div>
-        <MaterialReactTable table={table}/>
-    </>
+    )
 }
 
 export default BOStockUpdate;

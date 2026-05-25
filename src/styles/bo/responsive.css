@@ -1,0 +1,78 @@
+/* Mobile / tablet breakpoints — sidebar collapses to a horizontal strip. */
+
+@media (max-width: 960px) {
+    .bo-app {
+        flex-direction: column;
+    }
+
+    .bo-sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        min-height: 0;
+        padding: 16px 0;
+    }
+
+    .bo-sidebar__brand {
+        padding: 0 20px 14px;
+    }
+
+    .bo-sidebar__nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 4px;
+        padding: 12px 16px;
+    }
+
+    .bo-sidebar__section {
+        width: 100%;
+        padding: 8px 8px 4px;
+    }
+
+    .bo-sidebar__link::before {
+        display: none;
+    }
+
+    .bo-sidebar__footer {
+        padding: 12px 20px 0;
+    }
+
+    .bo-main {
+        padding: 24px 16px 64px;
+    }
+
+    .bo-page__title {
+        font-size: 22px;
+    }
+
+    .bo-page__head {
+        align-items: flex-start;
+    }
+
+    .bo-page__actions {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .bo-card__head {
+        padding: 16px 18px;
+    }
+
+    .bo-card__body {
+        padding: 18px;
+    }
+
+    .bo-card__actions {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .bo-kpi {
+        border-right: none;
+        border-bottom: 1px solid var(--bo-line);
+    }
+
+    .bo-kpi:last-child {
+        border-bottom: none;
+    }
+}

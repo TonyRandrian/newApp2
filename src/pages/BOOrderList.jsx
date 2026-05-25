@@ -64,30 +64,64 @@ function BOOrderList() {
         }
         loadOrders();
     },[]);
-    
 
-    return(
-        <>
-            <h1>Liste de tous les commandes</h1>
+
+    return (
+        <div className="bo-page">
+            <header className="bo-page__head">
+                <div className="bo-page__heading">
+                    <span className="bo-page__eyebrow">Pilotage</span>
+                    <h1 className="bo-page__title">Commandes</h1>
+                    <p className="bo-page__subtitle">
+                        Liste des commandes enregistrées. Modifiez le statut ou la date depuis le tableau ci-dessous.
+                    </p>
+                </div>
+            </header>
+
             {actionResult && (
-                <div style={{ marginBottom: "20px", padding: "10px", border: "1px solid", backgroundColor: actionResult.success ? "#d4edda" : "#f8d7da", color: actionResult.success ? "#155724" : "#721c24" }}>
+                <div className={`bo-banner ${actionResult.success ? "bo-banner--success" : "bo-banner--error"}`}>
                     {actionResult.success ? (
-                        <>Commande {actionResult.orderId} mise à jour avec succès à l'état {actionResult.orderStateId}. Dernier historique : {actionResult.orderHistory ? `ID ${actionResult.orderHistory.id} à ${actionResult.orderHistory.dateAdd}` : "Aucun historique trouvé"}.</>
+                        <span>
+                            <span className="bo-banner__title">Commande #{actionResult.orderId} mise à jour.</span>
+                            Nouvel état : {actionResult.orderStateId}.
+                            {" "}
+                            {actionResult.orderHistory
+                                ? `Dernier historique : ID ${actionResult.orderHistory.id} le ${actionResult.orderHistory.dateAdd}.`
+                                : "Aucun historique trouvé."}
+                        </span>
                     ) : (
-                        <>Erreur lors de la mise à jour de la commande {actionResult.orderId} : {actionResult.error}</>
+                        <span>
+                            <span className="bo-banner__title">Échec sur la commande #{actionResult.orderId} :</span>
+                            {actionResult.error}
+                        </span>
                     )}
                 </div>
             )}
-            {isLoading ? (<p>Chargements des clients</p>) : (
-                <BOOrderRow
-                    title="Commandes"
-                    rows={orders}
-                    edit={edit}
-                    onChange={handleChange}
-                    onClick={handleClick}
-                />
-            )}
-        </>
+
+            <div className="bo-page__body">
+                {isLoading ? (
+                    <p className="bo-status bo-status--loading">Chargement des commandes…</p>
+                ) : (
+                    <div className="bo-card">
+                        <div className="bo-card__head">
+                            <div className="bo-card__heading">
+                                <h3 className="bo-card__title">Liste des commandes</h3>
+                                <span className="bo-card__subtitle">{orders.length} commande{orders.length > 1 ? "s" : ""} au total</span>
+                            </div>
+                        </div>
+                        <div className="bo-card__body bo-card__body--flush">
+                            <BOOrderRow
+                                title=""
+                                rows={orders}
+                                edit={edit}
+                                onChange={handleChange}
+                                onClick={handleClick}
+                            />
+                        </div>
+                    </div>
+                )}
+            </div>
+        </div>
     )
 
 }

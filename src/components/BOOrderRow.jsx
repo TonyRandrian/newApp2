@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import { useEffect, useMemo, useRef } from "react"
 import { MaterialReactTable, useMaterialReactTable } from "material-react-table"
 import { formatDateInput, formatDateTime } from "../backend/utils/utils"
@@ -16,14 +18,13 @@ function OrderActionCell({ cell, table }) {
     const dateValue = isSelected ? (edit?.dateUpdate || baseDate) : baseDate
 
     return (
-        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", alignItems: "center" }}>
+        <div className="bo-order-action">
             <select
                 name="orderStateId"
                 onChange={meta.onChangeRef?.current?.(rowId)}
                 value={isSelected ? (edit?.orderStateId ?? currentStateId) : currentStateId}
-                style={{ padding: "4px" }}
             >
-                <option value="">Sélectionner un état</option>
+                <option value="">— Sélectionner —</option>
                 <option value="5">Livré</option>
                 <option value="6">Annulé</option>
             </select>
@@ -32,9 +33,8 @@ function OrderActionCell({ cell, table }) {
                 name="dateUpdate"
                 onChange={meta.onChangeRef?.current?.(rowId)}
                 value={dateValue}
-                style={{ padding: "4px" }}
             />
-            <button type="button" onClick={() => meta.onClickRef?.current?.(rowId)} style={{ padding: "4px 8px" }}>
+            <button type="button" className="bo-btn--ghost bo-btn--sm" onClick={() => meta.onClickRef?.current?.(rowId)}>
                 Modifier
             </button>
         </div>
@@ -77,30 +77,30 @@ function BOOrderRow({
     const columns = useMemo(
         () => [
             {
-                header: "REFERENCE",
+                header: "Référence",
                 accessorKey: "id",
             },
             {
-                header: "NOM",
+                header: "Client",
                 accessorKey: "customerName",
             },
             {
-                header: "DATE",
-                accessorFn: (row) => formatDateTime(row.dateAdd) || "N/A",
+                header: "Date",
+                accessorFn: (row) => formatDateTime(row.dateAdd) || "—",
             },
             {
-                header: "TOTAL",
+                header: "Total",
                 accessorFn: (row) => {
                     const total = Number(row?.totalPaid ?? 0)
-                    return Number.isFinite(total) ? total.toFixed(2) : "N/A"
+                    return Number.isFinite(total) ? total.toFixed(2) : "—"
                 },
             },
             {
-                header: "ETAT ACTUEL",
+                header: "État actuel",
                 accessorKey: "orderStateName",
             },
             {
-                header: "ACTION",
+                header: "Action",
                 Cell: OrderActionCell,
             },
         ],
@@ -123,10 +123,10 @@ function BOOrderRow({
     })
 
     return (
-        <section>
+        <>
             {title ? <h3>{title}</h3> : null}
             <MaterialReactTable table={table} />
-        </section>
+        </>
     )
 }
 

@@ -114,3 +114,19 @@
     padding: 4px 8px;
     font-size: 12px;
 }
+
+/* Inline action group inside an order row */
+.bo-app .bo-order-action,
+.bo-app .bo-stock-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.bo-app .bo-order-action select,
+.bo-app .bo-order-action input[type="date"] {
+    min-height: 28px;
+    padding: 4px 8px;
+    font-size: 12px;
+}

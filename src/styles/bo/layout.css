@@ -1,4 +1,5 @@
-/* Main content area, sections, dashboard tiles, filter strips, page headers. */
+/* Main content area + reusable layout primitives.
+   Composable, class-based — no brittle :nth-of-type / :has positional selectors. */
 
 .bo-main {
     flex: 1;
@@ -9,79 +10,206 @@
     width: 100%;
 }
 
-.bo-app section {
-    background: var(--bo-surface);
-    border: 1px solid var(--bo-border);
-    border-radius: var(--bo-radius-lg);
-    padding: 24px 28px;
-    margin-bottom: 24px;
-    box-shadow: var(--bo-shadow-sm);
-}
+/* ------- Page wrapper --------------------------------------------------- */
 
-/* Dashboard summary tiles — first two sections inside the inner wrapper */
-.bo-main > div > section:nth-of-type(-n+2) {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+.bo-page {
+    display: flex;
+    flex-direction: column;
     gap: 24px;
-    padding: 24px 28px;
 }
 
-.bo-main > div > section:nth-of-type(-n+2) > div {
-    border-left: 2px solid var(--bo-accent);
-    padding: 4px 0 4px 16px;
+.bo-page__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 16px;
+    padding-bottom: 18px;
+    margin-bottom: 4px;
+    border-bottom: 1px solid var(--bo-border);
 }
 
-.bo-main > div > section:nth-of-type(-n+2) > div > div {
+.bo-page__heading {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.bo-page__eyebrow {
     font-size: 11px;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--bo-muted);
-    margin-bottom: 6px;
+    letter-spacing: 0.14em;
+    color: var(--bo-accent);
 }
 
-.bo-main > div > section:nth-of-type(-n+2) > div > strong {
-    display: block;
+.bo-page__title {
     font-family: var(--bo-font-serif);
     font-weight: 500;
-    font-size: 26px;
+    font-size: 28px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--bo-ink);
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.bo-page__subtitle {
+    color: var(--bo-muted);
+    font-size: 13px;
+    max-width: 70ch;
+}
+
+.bo-page__actions {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.bo-page__body {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* ------- Card ----------------------------------------------------------- */
+
+.bo-card {
+    background: var(--bo-surface);
+    border: 1px solid var(--bo-border);
+    border-radius: var(--bo-radius-lg);
+    box-shadow: var(--bo-shadow-sm);
+    overflow: hidden;
+}
+
+.bo-card__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--bo-line);
+    background: var(--bo-surface-alt);
+}
+
+.bo-card__heading {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.bo-card__title {
+    font-family: var(--bo-font-serif);
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--bo-ink);
+    letter-spacing: 0;
+    margin: 0;
+}
+
+.bo-card__subtitle {
+    font-size: 12px;
+    color: var(--bo-muted);
+}
+
+.bo-card__actions {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.bo-card__body {
+    padding: 22px 24px;
+}
+
+.bo-card__body--flush {
+    padding: 0;
+}
+
+.bo-card__footer {
+    padding: 14px 24px;
+    border-top: 1px solid var(--bo-line);
+    background: var(--bo-surface-alt);
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+/* ------- KPI grid ------------------------------------------------------- */
+
+.bo-kpis {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0;
+}
+
+.bo-kpi {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 22px 24px;
+    border-right: 1px solid var(--bo-line);
+    position: relative;
+}
+
+.bo-kpi:last-child {
+    border-right: none;
+}
+
+.bo-kpi::before {
+    content: "";
+    position: absolute;
+    left: 24px;
+    top: 22px;
+    width: 18px;
+    height: 1px;
+    background: var(--bo-accent);
+}
+
+.bo-kpi__label {
+    margin-top: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--bo-muted);
+}
+
+.bo-kpi__value {
+    font-family: var(--bo-font-serif);
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 1.1;
     color: var(--bo-ink);
     letter-spacing: -0.01em;
 }
 
-/* Filter strip (dates + status + reset) */
-.bo-main > div > section:nth-of-type(3) {
+.bo-kpi__hint {
+    font-size: 12px;
+    color: var(--bo-faint);
+}
+
+/* ------- Filters bar ---------------------------------------------------- */
+
+.bo-filters {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-end;
-    gap: 16px;
+    gap: 14px 18px;
 }
 
-.bo-main > div > section:nth-of-type(3) > label {
-    flex: 0 1 auto;
-}
-
-.bo-main > div > section:nth-of-type(3) > div {
-    margin-left: auto;
-}
-
-/* Bare date/filter row on Statistics page */
-.bo-main > div > div:has(> div > input[type="date"]) {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    gap: 16px;
-    padding: 16px 20px;
-    background: var(--bo-surface);
-    border: 1px solid var(--bo-border);
-    border-radius: var(--bo-radius-lg);
-    margin-bottom: 20px;
-}
-
-.bo-main > div > div:has(> div > input[type="date"]) > div {
+.bo-filter {
     display: flex;
     flex-direction: column;
     gap: 6px;
+    min-width: 160px;
+}
+
+.bo-filter__label {
     font-size: 11px;
     font-weight: 600;
     text-transform: uppercase;
@@ -89,48 +217,79 @@
     color: var(--bo-muted);
 }
 
-.bo-main > div > div:has(> div > input[type="date"]) > button {
+.bo-filters__actions {
     margin-left: auto;
-}
-
-/* Stock pages — <header> wrapping a title + filters */
-.bo-app header {
     display: flex;
-    flex-wrap: wrap;
+    gap: 8px;
     align-items: center;
-    gap: 16px;
-    padding: 0 0 16px;
-    margin-bottom: 16px;
-    border-bottom: 1px solid var(--bo-border);
 }
 
-.bo-app header h4,
-.bo-app header h5 {
-    margin: 0;
-    font-family: var(--bo-font-serif);
-    font-size: 16px;
-    font-weight: 500;
-    text-transform: none;
-    letter-spacing: 0;
-    color: var(--bo-ink);
-}
+/* ------- Banner (status / result messages) ----------------------------- */
 
-.bo-app header > div {
+.bo-banner {
     display: flex;
-    gap: 16px;
-    align-items: flex-end;
-    margin-left: auto;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 18px;
+    border-radius: var(--bo-radius-lg);
+    border-left: 3px solid var(--bo-border-strong);
+    background: var(--bo-surface-alt);
+    color: var(--bo-ink-soft);
+    font-size: 13px;
 }
 
-.bo-app header label {
-    flex-direction: column;
-    gap: 4px;
+.bo-banner__title {
+    font-weight: 600;
+    color: var(--bo-ink);
+    margin-right: 4px;
 }
 
-/* Inline result banners (BOOrderList uses inline style with backgroundColor) */
-.bo-app div[style*="backgroundColor"][style*="border"] {
-    border-radius: var(--bo-radius-lg) !important;
-    border-width: 0 0 0 3px !important;
-    padding: 14px 18px !important;
+.bo-banner--success {
+    background: #f0f5f1;
+    border-left-color: var(--bo-success);
+    color: #1e3f2c;
+}
+
+.bo-banner--error {
+    background: #fdf3ef;
+    border-left-color: var(--bo-danger);
+    color: var(--bo-danger);
+}
+
+.bo-banner--info {
+    background: var(--bo-accent-soft);
+    border-left-color: var(--bo-accent);
+    color: var(--bo-accent-hover);
+}
+
+/* ------- Status / empty / loading text --------------------------------- */
+
+.bo-status {
+    color: var(--bo-muted);
+    font-size: 13px;
+    padding: 6px 0;
+}
+
+.bo-status--loading::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--bo-accent);
+    margin-right: 10px;
+    vertical-align: middle;
+    animation: bo-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes bo-pulse {
+    0%, 100% { opacity: 0.35; transform: scale(0.85); }
+    50% { opacity: 1; transform: scale(1); }
+}
+
+.bo-empty {
+    padding: 40px 24px;
+    text-align: center;
+    color: var(--bo-muted);
     font-size: 13px;
 }

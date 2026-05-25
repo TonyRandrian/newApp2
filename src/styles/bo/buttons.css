@@ -1,4 +1,4 @@
-/* Buttons — default solid, submit accent, and table-inline variants. */
+/* Buttons — bare element + .bo-btn modifiers (primary / ghost / danger / block). */
 
 .bo-app button,
 .bo-app input[type="submit"] {
@@ -16,6 +16,11 @@
     transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease, transform 80ms ease;
     letter-spacing: 0.01em;
     font-family: var(--bo-font-sans);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    white-space: nowrap;
 }
 
 .bo-app button:hover,
@@ -33,12 +38,48 @@
     cursor: not-allowed;
 }
 
-.bo-app button[type="submit"] {
+.bo-app button[type="submit"],
+.bo-app .bo-btn--primary {
     background: var(--bo-accent);
     border-color: var(--bo-accent);
+    color: #fff;
 }
 
-.bo-app button[type="submit"]:hover {
+.bo-app button[type="submit"]:hover,
+.bo-app .bo-btn--primary:hover {
     background: var(--bo-accent-hover);
     border-color: var(--bo-accent-hover);
+}
+
+.bo-app .bo-btn--ghost {
+    background: var(--bo-surface);
+    border-color: var(--bo-border-strong);
+    color: var(--bo-ink-soft);
+}
+
+.bo-app .bo-btn--ghost:hover {
+    background: var(--bo-bg-soft);
+    border-color: var(--bo-ink);
+    color: var(--bo-ink);
+}
+
+.bo-app .bo-btn--danger {
+    background: var(--bo-danger);
+    border-color: var(--bo-danger);
+    color: #fff;
+}
+
+.bo-app .bo-btn--danger:hover {
+    background: var(--bo-danger-hover);
+    border-color: var(--bo-danger-hover);
+}
+
+.bo-app .bo-btn--block {
+    width: 100%;
+}
+
+.bo-app .bo-btn--sm {
+    min-height: 30px;
+    padding: 5px 12px;
+    font-size: 12px;
 }

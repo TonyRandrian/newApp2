@@ -273,47 +273,98 @@ function BOStatistic() {
     }
 
     return (
-        <div>
-            <h1>Statistiques</h1>
+        <div className="bo-page">
+            <header className="bo-page__head">
+                <div className="bo-page__heading">
+                    <span className="bo-page__eyebrow">Pilotage</span>
+                    <h1 className="bo-page__title">Statistiques</h1>
+                    <p className="bo-page__subtitle">
+                        Analyse des ventes, du coût d'achat et de la disponibilité du stock par catégorie.
+                    </p>
+                </div>
+            </header>
 
-            {loading && <p>Chargement...</p>}
-            {!loading && error && <p>{error}</p>}
+            {loading && <p className="bo-status bo-status--loading">Chargement des statistiques…</p>}
+            {!loading && error && (
+                <div className="bo-banner bo-banner--error">
+                    <span className="bo-banner__title">Erreur :</span>
+                    {error}
+                </div>
+            )}
 
             {!loading && !error && (
-                <div>
-                    <div>
-                        <div>
-                            date min
-                            <input
-                                type="date"
-                                value={dateMin}
-                                onChange={(event) => setDateMin(event.target.value)}
-                            />
+                <div className="bo-page__body">
+                    <div className="bo-card">
+                        <div className="bo-card__head">
+                            <div className="bo-card__heading">
+                                <h3 className="bo-card__title">Période d'analyse</h3>
+                                <span className="bo-card__subtitle">Restreindre l'ensemble des tableaux ci-dessous</span>
+                            </div>
                         </div>
+                        <div className="bo-card__body">
+                            <div className="bo-filters">
+                                <label className="bo-filter">
+                                    <span className="bo-filter__label">Date de début</span>
+                                    <input
+                                        type="date"
+                                        value={dateMin}
+                                        onChange={(event) => setDateMin(event.target.value)}
+                                    />
+                                </label>
 
-                        <div>
-                            date max
-                            <input
-                                type="date"
-                                value={dateMax}
-                                onChange={(event) => setDateMax(event.target.value)}
-                            />
+                                <label className="bo-filter">
+                                    <span className="bo-filter__label">Date de fin</span>
+                                    <input
+                                        type="date"
+                                        value={dateMax}
+                                        onChange={(event) => setDateMax(event.target.value)}
+                                    />
+                                </label>
+
+                                <div className="bo-filters__actions">
+                                    <button type="button" className="bo-btn--ghost" onClick={resetDateFilter}>
+                                        Réinitialiser
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-
-                        <button onClick={resetDateFilter}>
-                            Reset filtre date
-                        </button>
                     </div>
-                    <MaterialReactTable table={table}/>
 
-                    <h3>Commande par categorie (cout depuis mouvements)</h3>
-                    <MaterialReactTable table={stockCostTable}/>
+                    <div className="bo-card">
+                        <div className="bo-card__head">
+                            <div className="bo-card__heading">
+                                <h3 className="bo-card__title">Ventes par catégorie</h3>
+                                <span className="bo-card__subtitle">Coût calculé depuis les lignes de commande</span>
+                            </div>
+                        </div>
+                        <div className="bo-card__body bo-card__body--flush">
+                            <MaterialReactTable table={table}/>
+                        </div>
+                    </div>
 
-                    {/* <h3>Test</h3>
-                    <MaterialReactTable table={stockCostTableTest} /> */}
+                    <div className="bo-card">
+                        <div className="bo-card__head">
+                            <div className="bo-card__heading">
+                                <h3 className="bo-card__title">Ventes par catégorie</h3>
+                                <span className="bo-card__subtitle">Coût calculé depuis les mouvements de stock</span>
+                            </div>
+                        </div>
+                        <div className="bo-card__body bo-card__body--flush">
+                            <MaterialReactTable table={stockCostTable}/>
+                        </div>
+                    </div>
 
-                    <h3>Disponibilite Stock</h3>
-                    <MaterialReactTable table={stockTable}/>
+                    <div className="bo-card">
+                        <div className="bo-card__head">
+                            <div className="bo-card__heading">
+                                <h3 className="bo-card__title">Disponibilité du stock</h3>
+                                <span className="bo-card__subtitle">Stock physique, réservé et disponible par catégorie</span>
+                            </div>
+                        </div>
+                        <div className="bo-card__body bo-card__body--flush">
+                            <MaterialReactTable table={stockTable}/>
+                        </div>
+                    </div>
                 </div>
             )}
         </div>

@@ -14,7 +14,7 @@ function BOReset() {
         return orderMap;
     }, [])
     const isAllSelected = selected.size === RESOURCES_TO_RESET.length;
-    
+
     const toggleItem = (key) => {
         setSelected((prev) => {
             const next = new Set(prev);
@@ -44,25 +44,61 @@ function BOReset() {
     }
 
     return (
-        <div>
-            {[...orderByValue.values()].map((resource) => (
-                <div key={resource.value}>
-                    <input
-                        id={`reset-${resource.value}`}
-                        type="checkbox"
-                        checked={selected.has(resource.value)}
-                        onChange={() => toggleItem(resource.value)}
-                    />
-                    <label
-                        className="form-check-label"
-                        htmlFor={`reset-${resource.value}`}
-                    >
-                        {resource.value} / {resource.description}
-                    </label>
+        <div className="bo-page">
+            <header className="bo-page__head">
+                <div className="bo-page__heading">
+                    <span className="bo-page__eyebrow">Système</span>
+                    <h1 className="bo-page__title">Réinitialisation des données</h1>
+                    <p className="bo-page__subtitle">
+                        Sélectionnez les ressources à supprimer. L'opération est définitive.
+                    </p>
                 </div>
-            ))}
-            <button onClick={toggleAll}>{isAllSelected ? "Désélectionner tout" : "Sélectionner tout"}</button>
-            <button onClick={doDelete}>Valider</button>
+            </header>
+
+            <div className="bo-page__body">
+                <div className="bo-banner bo-banner--error">
+                    <span className="bo-banner__title">Attention :</span>
+                    cette action supprime les données de manière irréversible sur l'environnement courant.
+                </div>
+
+                <div className="bo-checklist">
+                    <div className="bo-checklist__list">
+                        {[...orderByValue.values()].map((resource) => (
+                            <div className="bo-checklist__row" key={resource.value}>
+                                <input
+                                    id={`reset-${resource.value}`}
+                                    type="checkbox"
+                                    checked={selected.has(resource.value)}
+                                    onChange={() => toggleItem(resource.value)}
+                                />
+                                <label
+                                    className="bo-checklist__label"
+                                    htmlFor={`reset-${resource.value}`}
+                                >
+                                    <span className="bo-checklist__key">{resource.value}</span>
+                                    <span className="bo-checklist__desc">{resource.description}</span>
+                                </label>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="bo-checklist__footer">
+                        <span className="bo-checklist__count">
+                            <strong>{selected.size}</strong> ressource{selected.size > 1 ? "s" : ""} sélectionnée{selected.size > 1 ? "s" : ""}
+                            {" sur "}
+                            <strong>{RESOURCES_TO_RESET.length}</strong>
+                        </span>
+                        <div className="bo-checklist__actions">
+                            <button type="button" className="bo-btn--ghost" onClick={toggleAll}>
+                                {isAllSelected ? "Tout désélectionner" : "Tout sélectionner"}
+                            </button>
+                            <button type="button" className="bo-btn--danger" onClick={doDelete} disabled={selected.size === 0}>
+                                Supprimer la sélection
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 

@@ -73,32 +73,43 @@ function BOStockEvolution({combination, productDetails}) {
         data: filteredData
     })
 
-    return <div>
-        <header>
-            <h4>Evolution de stock</h4>
-            <div>
-                <label>
-                    Du
-                    <input
-                        type={"date"}
-                        value={dateFrom}
-                        max={dateTo || undefined}
-                        onChange={(e) => setDateFrom(e.target.value)}
-                    />
-                </label>
-                <label>
-                    Au
-                    <input
-                        type={"date"}
-                        value={dateTo}
-                        min={dateFrom || undefined}
-                        onChange={(e) => setDateTo(e.target.value)}
-                    />
-                </label>
+    return (
+        <div className="bo-card">
+            <div className="bo-card__head">
+                <div className="bo-card__heading">
+                    <h3 className="bo-card__title">Évolution du stock</h3>
+                    <span className="bo-card__subtitle">
+                        {productId
+                            ? "Mouvements journaliers pour le produit sélectionné."
+                            : "Sélectionnez un produit dans le tableau ci-dessus pour afficher son évolution."}
+                    </span>
+                </div>
+                <div className="bo-card__actions">
+                    <label className="bo-filter">
+                        <span className="bo-filter__label">Du</span>
+                        <input
+                            type={"date"}
+                            value={dateFrom}
+                            max={dateTo || undefined}
+                            onChange={(e) => setDateFrom(e.target.value)}
+                        />
+                    </label>
+                    <label className="bo-filter">
+                        <span className="bo-filter__label">Au</span>
+                        <input
+                            type={"date"}
+                            value={dateTo}
+                            min={dateFrom || undefined}
+                            onChange={(e) => setDateTo(e.target.value)}
+                        />
+                    </label>
+                </div>
             </div>
-            <MaterialReactTable table={table} />
-        </header>
-    </div>
+            <div className="bo-card__body bo-card__body--flush">
+                <MaterialReactTable table={table} />
+            </div>
+        </div>
+    )
 }
 
 export default BOStockEvolution;

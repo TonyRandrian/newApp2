@@ -40,37 +40,21 @@ html, body {
     margin: 0;
 }
 
+/* Headings carry inheritable styles only — sizes and decorations live on
+   the component classes (.bo-page__title, .bo-card__title, etc.) so they
+   compose cleanly without specificity wars. */
 .bo-app h1,
 .bo-app h2,
-.bo-app h3 {
+.bo-app h3,
+.bo-app h4,
+.bo-app h5,
+.bo-app h6 {
     font-family: var(--bo-font-serif);
     font-weight: 500;
     letter-spacing: -0.01em;
     color: var(--bo-ink);
-}
-
-.bo-app h1 {
-    font-size: 28px;
-    line-height: 1.2;
-    margin-bottom: 24px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--bo-border);
-}
-
-.bo-app h3 {
-    font-size: 18px;
-    margin-top: 32px;
-    margin-bottom: 12px;
-}
-
-.bo-app h4,
-.bo-app h5 {
-    font-family: var(--bo-font-sans);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-size: 11px;
-    color: var(--bo-muted);
+    font-size: inherit;
+    line-height: 1.25;
 }
 
 .bo-app a {
