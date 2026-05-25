@@ -102,8 +102,8 @@ function BOStockUpdate({setCombination, setProductDetails}) {
 
                         setProductDetails(row.original)
                         setCombination([product.id, idProductAttribute])
-                    }}>
-                        Voir l'évolution
+                    }} title="Voir l'évolution du stock">
+                        Évolution
                     </button>
                 </div>
             ),

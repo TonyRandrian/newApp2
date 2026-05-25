@@ -6,13 +6,30 @@
     border-radius: var(--bo-radius-lg) !important;
     box-shadow: var(--bo-shadow-sm) !important;
     color: var(--bo-ink) !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* When a table sits inside a .bo-card body, the card already provides the
+   surface — strip the duplicated border / shadow / radius from the Paper. */
+.bo-app .bo-card .MuiPaper-root {
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+/* Make sure the horizontal scroll happens *inside* the table container,
+   not by pushing the card out of its parent. */
+.bo-app .MuiTableContainer-root {
+    max-width: 100% !important;
+    overflow-x: auto !important;
 }
 
 .bo-app .MuiTableCell-root {
     font-family: var(--bo-font-sans) !important;
     color: var(--bo-ink-soft) !important;
     border-bottom: 1px solid var(--bo-line) !important;
-    padding: 12px 16px !important;
+    padding: 10px 14px !important;
     font-size: 13px !important;
 }
 
@@ -72,6 +89,26 @@
     background: var(--bo-surface) !important;
     border-bottom: 1px solid var(--bo-line) !important;
     min-height: 52px !important;
+}
+
+/* MRT renders its top-toolbar internal-buttons inside a nested <Box> whose
+   default sx applies a dark pill background. Neutralize every Box descendant
+   of the table Paper — they're all layout-only in our context. */
+.bo-app .MuiPaper-root .MuiBox-root {
+    background-color: transparent !important;
+    background-image: none !important;
+}
+
+/* Make sure icon glyphs stay readable on the light toolbar. */
+.bo-app .MuiButtonBase-root.MuiIconButton-root svg,
+.bo-app .MuiButtonBase-root.MuiIconButton-root path {
+    color: var(--bo-muted) !important;
+    fill: currentColor !important;
+}
+
+.bo-app .MuiButtonBase-root.MuiIconButton-root:hover svg,
+.bo-app .MuiButtonBase-root.MuiIconButton-root:hover path {
+    color: var(--bo-accent) !important;
 }
 
 .bo-app .MuiTablePagination-root,
