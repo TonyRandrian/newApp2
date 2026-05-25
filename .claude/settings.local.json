@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s -o nul -w \"%{http_code}\" \"http://localhost:5173/api/stock_movements?filter\\\\[id_product\\\\]=\\\\[49\\\\]&display=full\")"
+    ]
+  }
+}

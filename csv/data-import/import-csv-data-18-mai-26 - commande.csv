@@ -1,0 +1,101 @@
+date,nom,email,pwd,adresse,achat,etat
+10/05/2026,Voahangy Client 1,client1@mail.com,Kx9aEZQX,"Ankorondrano, Antananarivo","[(""P_05"";4;""""),(""P_30"";2;""""),(""P_16"";2;""Bleu"")]",paiement accepté
+10/05/2026,Aina Client 8,client8@mail.com,sp8Jz53f,"Ivandry, Antananarivo","[(""P_18"";4;""""),(""P_03"";4;""Noir""),(""P_17"";4;""""),(""P_30"";4;""""),(""P_08"";1;"""")]",paiement accepté
+10/05/2026,Hery Client 15,client15@mail.com,pOUw3dJU,"Ambatoroka, Antananarivo","[(""P_04"";4;""M""),(""P_13"";3;""Bleu"")]",paiement accepté
+10/05/2026,Hery Client 22,client22@mail.com,aIlNPjCA,"Analakely, Antananarivo","[(""P_02"";2;""M""),(""P_29"";1;""""),(""P_09"";4;""Max""),(""P_06"";3;""XL""),(""P_22"";3;""M"")]",paiement accepté
+10/05/2026,Aina Client 29,client29@mail.com,OYnip7hY,"Mahamasina, Antananarivo","[(""P_23"";3;""""),(""P_11"";3;""L""),(""P_14"";1;""""),(""P_10"";4;""128GB""),(""P_01"";4;""128GB"")]",paiement accepté
+10/05/2026,Fanja Client 36,client36@mail.com,0bLEaXzx,"Analakely, Antananarivo","[(""P_04"";1;""XL""),(""P_11"";3;""S"")]",
+10/05/2026,Rabe Client 43,client43@mail.com,VgJS9M4A,"Ambatoroka, Antananarivo","[(""P_05"";2;"""")]",livré
+10/05/2026,Rabe Client 50,client50@mail.com,5JbbWjql,"67Ha, Antananarivo","[(""P_23"";1;""""),(""P_27"";1;""""),(""P_18"";2;""""),(""P_23"";4;""""),(""P_19"";4;"""")]",
+10/05/2026,Rabe Client 57,client57@mail.com,Mu0q7fld,"67Ha, Antananarivo","[(""P_29"";2;"""")]",paiement accepté
+10/05/2026,Aina Client 64,client64@mail.com,8mASGTzk,"Mahamasina, Antananarivo","[(""P_09"";3;""Max"")]",paiement accepté
+10/05/2026,Fitia Client 71,client71@mail.com,KXanDZOr,"Analakely, Antananarivo","[(""P_24"";3;""XL""),(""P_25"";1;""32GB""),(""P_29"";3;""""),(""P_15"";1;""Pro""),(""P_26"";4;""M"")]",
+10/05/2026,Fanja Client 78,client78@mail.com,8Y5YWknW,"Ambatoroka, Antananarivo","[(""P_23"";4;""""),(""P_20"";3;""128GB"")]",paiement accepté
+10/05/2026,Tahina Client 85,client85@mail.com,8Ufu9Fz1,"Ivandry, Antananarivo","[(""P_21"";1;""L""),(""P_15"";2;""Pro""),(""P_27"";1;""""),(""P_19"";2;""""),(""P_03"";1;""Blanc"")]",
+10/05/2026,Tahina Client 94,client94@mail.com,dD12N6Ej,"Mahamasina, Antananarivo","[(""P_24"";4;""M""),(""P_17"";2;""""),(""P_14"";2;""""),(""P_07"";2;""""),(""P_25"";1;""128GB"")]",paiement accepté
+12/05/2026,Voahangy Client 1,client1@mail.com,Kx9aEZQX,"Ankorondrano, Antananarivo","[(""P_19"";4;""""),(""P_13"";4;""Blanc"")]",
+12/05/2026,Rabe Client 9,client9@mail.com,fmlAJReA,"67Ha, Antananarivo","[(""P_03"";2;""Rouge""),(""P_04"";1;""L""),(""P_16"";4;""Blanc"")]",
+12/05/2026,Hery Client 15,client15@mail.com,pOUw3dJU,"Ambatoroka, Antananarivo","[(""P_02"";1;""S""),(""P_23"";4;""""),(""P_10"";1;""128GB""),(""P_17"";3;"""")]",paiement accepté
+12/05/2026,Miora Client 23,client23@mail.com,mKUzQlsm,"Mahamasina, Antananarivo","[(""P_21"";3;""S""),(""P_28"";2;""""),(""P_01"";4;""128GB""),(""P_21"";2;""M"")]",
+12/05/2026,Rakoto Client 30,client30@mail.com,ssQmuFON,"Mahamasina, Antananarivo","[(""P_07"";3;""""),(""P_08"";3;"""")]",
+12/05/2026,Miora Client 37,client37@mail.com,iPaGUNWY,"67Ha, Antananarivo","[(""P_13"";2;""Rouge""),(""P_20"";1;""64GB""),(""P_14"";1;""""),(""P_04"";4;""XL"")]",paiement accepté
+12/05/2026,Rabe Client 44,client44@mail.com,bSAwtpef,"Analakely, Antananarivo","[(""P_10"";2;""128GB""),(""P_10"";4;""64GB""),(""P_17"";4;""""),(""P_04"";4;""XL""),(""P_12"";1;""Max"")]",paiement accepté
+12/05/2026,Tahina Client 51,client51@mail.com,yufO02VA,"Analakely, Antananarivo","[(""P_18"";1;"""")]",paiement accepté
+12/05/2026,Hery Client 58,client58@mail.com,9oqnsLri,"Ambatoroka, Antananarivo","[(""P_18"";2;""""),(""P_25"";3;""64GB"")]",paiement accepté
+12/05/2026,Rabe Client 65,client65@mail.com,f3rE0sWC,"Ivandry, Antananarivo","[(""P_22"";2;""XL"")]",
+12/05/2026,Andry Client 72,client72@mail.com,xXL6cYYw,"Ankorondrano, Antananarivo","[(""P_19"";4;"""")]",paiement accepté
+12/05/2026,Rabe Client 79,client79@mail.com,hWKcc86h,"Ambatoroka, Antananarivo","[(""P_15"";4;""Pro""),(""P_08"";1;""""),(""P_11"";2;""S""),(""P_22"";3;""XL""),(""P_17"";2;"""")]",
+12/05/2026,Miora Client 86,client86@mail.com,eygTWlVU,"Ankorondrano, Antananarivo","[(""P_05"";1;""""),(""P_11"";2;""L"")]",
+12/05/2026,Tahina Client 94,client94@mail.com,dD12N6Ej,"Mahamasina, Antananarivo","[(""P_07"";3;"""")]",paiement accepté
+13/05/2026,Voahangy Client 1,client1@mail.com,Kx9aEZQX,"Ankorondrano, Antananarivo","[(""P_02"";4;""M""),(""P_16"";4;""Bleu""),(""P_04"";1;""S""),(""P_27"";2;""""),(""P_18"";1;"""")]",paiement accepté
+13/05/2026,Fanja Client 10,client10@mail.com,ZuB7zsZM,"Ambatoroka, Antananarivo","[(""P_21"";4;""L""),(""P_24"";2;""L"")]",paiement accepté
+13/05/2026,Hery Client 15,client15@mail.com,pOUw3dJU,"Ambatoroka, Antananarivo","[(""P_26"";2;""XL""),(""P_23"";3;"""")]",paiement accepté
+13/05/2026,Rabe Client 24,client24@mail.com,tkJmT3xY,"Mahamasina, Antananarivo","[(""P_26"";4;""M""),(""P_15"";3;""Standard"")]",paiement accepté
+13/05/2026,Hery Client 31,client31@mail.com,T5gkuatG,"67Ha, Antananarivo","[(""P_06"";3;""XL""),(""P_30"";2;""""),(""P_14"";2;"""")]",paiement accepté
+13/05/2026,Voahangy Client 38,client38@mail.com,Jox45O8m,"Ankorondrano, Antananarivo","[(""P_28"";4;""""),(""P_10"";2;""64GB""),(""P_29"";2;""""),(""P_16"";2;""Blanc"")]",
+13/05/2026,Rabe Client 44,client44@mail.com,bSAwtpef,"Analakely, Antananarivo","[(""P_09"";3;""Standard""),(""P_23"";1;"""")]",
+13/05/2026,Fanja Client 52,client52@mail.com,gP0imVm6,"67Ha, Antananarivo","[(""P_23"";4;""""),(""P_15"";3;""Pro""),(""P_17"";2;""""),(""P_04"";4;""M"")]",paiement accepté
+13/05/2026,Voahangy Client 59,client59@mail.com,evzalfI7,"Ivandry, Antananarivo","[(""P_15"";1;""Standard""),(""P_05"";1;""""),(""P_07"";2;"""")]",livré
+13/05/2026,Rabe Client 66,client66@mail.com,MEvsFkMh,"Analakely, Antananarivo","[(""P_09"";2;""Standard""),(""P_25"";1;""128GB"")]",
+13/05/2026,Voahangy Client 73,client73@mail.com,86pmSWdl,"Ankorondrano, Antananarivo","[(""P_03"";1;""Rouge""),(""P_24"";1;""L""),(""P_08"";4;""""),(""P_04"";3;""S"")]",
+13/05/2026,Rabe Client 80,client80@mail.com,kvPIcHn8,"Mahamasina, Antananarivo","[(""P_23"";4;""""),(""P_17"";4;""""),(""P_11"";1;""XL""),(""P_13"";2;""Bleu"")]",paiement accepté
+13/05/2026,Tahina Client 87,client87@mail.com,ZKbQ9hwX,"67Ha, Antananarivo","[(""P_15"";2;""Standard"")]",paiement accepté
+13/05/2026,Tahina Client 94,client94@mail.com,dD12N6Ej,"Mahamasina, Antananarivo","[(""P_02"";1;""M""),(""P_24"";4;""S""),(""P_17"";4;""""),(""P_18"";2;"""")]",paiement accepté
+14/05/2026,Voahangy Client 1,client1@mail.com,Kx9aEZQX,"Ankorondrano, Antananarivo","[(""P_15"";3;""Pro""),(""P_08"";3;"""")]",paiement accepté
+14/05/2026,Hery Client 11,client11@mail.com,YdTXivOo,"Mahamasina, Antananarivo","[(""P_02"";4;""M""),(""P_26"";3;""M""),(""P_23"";4;"""")]",paiement accepté
+14/05/2026,Hery Client 15,client15@mail.com,pOUw3dJU,"Ambatoroka, Antananarivo","[(""P_29"";4;""""),(""P_08"";1;""""),(""P_02"";2;""S"")]",paiement accepté
+14/05/2026,Fitia Client 25,client25@mail.com,p3Z2M4j7,"Ivandry, Antananarivo","[(""P_02"";2;""M""),(""P_27"";2;"""")]",paiement accepté
+14/05/2026,Hery Client 31,client31@mail.com,T5gkuatG,"67Ha, Antananarivo","[(""P_29"";3;""""),(""P_21"";4;""XL""),(""P_30"";3;"""")]",paiement accepté
+14/05/2026,Fanja Client 39,client39@mail.com,pbJDnCYu,"67Ha, Antananarivo","[(""P_20"";4;""128GB""),(""P_13"";2;""Noir"")]",paiement accepté
+14/05/2026,Rabe Client 44,client44@mail.com,bSAwtpef,"Analakely, Antananarivo","[(""P_10"";3;""128GB""),(""P_12"";4;""Pro""),(""P_15"";4;""Pro"")]",paiement accepté
+14/05/2026,Rabe Client 53,client53@mail.com,cxfD1WxO,"Mahamasina, Antananarivo","[(""P_28"";4;""""),(""P_22"";2;""M""),(""P_11"";4;""L""),(""P_10"";2;""128GB"")]",
+14/05/2026,Fitia Client 60,client60@mail.com,tqayPEOH,"Ivandry, Antananarivo","[(""P_26"";2;""XL""),(""P_21"";4;""L""),(""P_17"";2;""""),(""P_11"";2;""L"")]",livré
+14/05/2026,Andry Client 67,client67@mail.com,GF1uOeeg,"Mahamasina, Antananarivo","[(""P_15"";1;""Standard""),(""P_05"";1;""""),(""P_19"";1;""""),(""P_14"";3;"""")]",paiement accepté
+14/05/2026,Miora Client 74,client74@mail.com,0qEdlloP,"67Ha, Antananarivo","[(""P_02"";2;""M""),(""P_28"";3;""""),(""P_20"";4;""32GB""),(""P_18"";4;""""),(""P_28"";2;"""")]",paiement accepté
+14/05/2026,Rabe Client 81,client81@mail.com,aZr5phGG,"Ivandry, Antananarivo","[(""P_24"";4;""XL"")]",
+14/05/2026,Andry Client 88,client88@mail.com,LwxmhA9H,"67Ha, Antananarivo","[(""P_22"";3;""XL""),(""P_16"";2;""Blanc""),(""P_16"";1;""Blanc""),(""P_06"";3;""L"")]",paiement accepté
+14/05/2026,Tahina Client 94,client94@mail.com,dD12N6Ej,"Mahamasina, Antananarivo","[(""P_26"";2;""M"")]",paiement accepté
+15/05/2026,Voahangy Client 1,client1@mail.com,Kx9aEZQX,"Ankorondrano, Antananarivo","[(""P_22"";3;""XL""),(""P_13"";3;""Noir""),(""P_16"";4;""Rouge""),(""P_13"";2;""Rouge"")]",paiement accepté
+15/05/2026,Fanja Client 12,client12@mail.com,ZzGaK6oF,"Analakely, Antananarivo","[(""P_17"";1;""""),(""P_01"";2;""64GB""),(""P_18"";3;""""),(""P_21"";2;""S""),(""P_24"";3;""M"")]",livré
+15/05/2026,Hery Client 15,client15@mail.com,pOUw3dJU,"Ambatoroka, Antananarivo","[(""P_20"";3;""64GB""),(""P_16"";2;""Bleu""),(""P_11"";4;""XL""),(""P_06"";3;""XL"")]",
+15/05/2026,Fanja Client 26,client26@mail.com,uuduNCIH,"Ivandry, Antananarivo","[(""P_03"";1;""Blanc"")]",livré
+15/05/2026,Hery Client 31,client31@mail.com,T5gkuatG,"67Ha, Antananarivo","[(""P_22"";3;""XL""),(""P_12"";2;""Pro""),(""P_04"";4;""S""),(""P_26"";2;""XL""),(""P_03"";1;""Rouge"")]",paiement accepté
+15/05/2026,Aina Client 40,client40@mail.com,H0zKb8eY,"Analakely, Antananarivo","[(""P_01"";3;""64GB""),(""P_02"";1;""M""),(""P_14"";4;""""),(""P_04"";2;""S"")]",livré
+15/05/2026,Rabe Client 44,client44@mail.com,bSAwtpef,"Analakely, Antananarivo","[(""P_10"";3;""128GB"")]",paiement accepté
+15/05/2026,Voahangy Client 54,client54@mail.com,lmV3lWrs,"Ankorondrano, Antananarivo","[(""P_06"";4;""S""),(""P_29"";2;"""")]",paiement accepté
+15/05/2026,Rakoto Client 61,client61@mail.com,1fnpKHSU,"Analakely, Antananarivo","[(""P_02"";3;""M"")]",livré
+15/05/2026,Fitia Client 68,client68@mail.com,3VW8qslN,"Ambatoroka, Antananarivo","[(""P_27"";2;"""")]",paiement accepté
+15/05/2026,Miora Client 75,client75@mail.com,diwS06mu,"Ivandry, Antananarivo","[(""P_17"";4;""""),(""P_25"";3;""128GB"")]",paiement accepté
+15/05/2026,Aina Client 82,client82@mail.com,peC785AR,"Ambatoroka, Antananarivo","[(""P_09"";4;""Max""),(""P_07"";1;""""),(""P_27"";2;""""),(""P_20"";1;""64GB""),(""P_29"";4;"""")]",paiement accepté
+15/05/2026,Fitia Client 89,client89@mail.com,jIhzbY8m,"Mahamasina, Antananarivo","[(""P_06"";4;""S""),(""P_17"";3;"""")]",
+15/05/2026,Aina Client 98,client98@mail.com,aRd89x6O,"Analakely, Antananarivo","[(""P_19"";1;""""),(""P_21"";2;""M""),(""P_19"";2;""""),(""P_22"";3;""XL"")]",paiement accepté
+18/05/2026,Voahangy Client 1,client1@mail.com,Kx9aEZQX,"Ankorondrano, Antananarivo","[(""P_02"";4;""S"")]",paiement accepté
+18/05/2026,Voahangy Client 13,client13@mail.com,OFJReqTe,"67Ha, Antananarivo","[(""P_22"";2;""XL""),(""P_27"";4;""""),(""P_20"";2;""64GB"")]",paiement accepté
+18/05/2026,Voahangy Client 20,client20@mail.com,3ezSg9Xq,"Mahamasina, Antananarivo","[(""P_10"";2;""64GB""),(""P_29"";1;""""),(""P_06"";3;""S"")]",paiement accepté
+18/05/2026,Fanja Client 27,client27@mail.com,GhDwpAoq,"Mahamasina, Antananarivo","[(""P_14"";4;""""),(""P_14"";2;"""")]",paiement accepté
+18/05/2026,Voahangy Client 34,client34@mail.com,n1zs5n18,"Ivandry, Antananarivo","[(""P_05"";4;""""),(""P_20"";4;""32GB"")]",paiement accepté
+18/05/2026,Rabe Client 41,client41@mail.com,2kVuWcpb,"Ambatoroka, Antananarivo","[(""P_02"";1;""M""),(""P_07"";2;""""),(""P_29"";4;""""),(""P_29"";3;""""),(""P_30"";1;"""")]",livré
+18/05/2026,Rabe Client 44,client44@mail.com,bSAwtpef,"Analakely, Antananarivo","[(""P_04"";3;""M""),(""P_29"";4;""""),(""P_30"";4;"""")]",paiement accepté
+18/05/2026,Rabe Client 55,client55@mail.com,y5SdOiLO,"Mahamasina, Antananarivo","[(""P_06"";4;""XL""),(""P_18"";1;""""),(""P_13"";4;""Blanc"")]",
+18/05/2026,Rakoto Client 61,client61@mail.com,1fnpKHSU,"Analakely, Antananarivo","[(""P_25"";2;""64GB"")]",livré
+18/05/2026,Hery Client 69,client69@mail.com,fZKznTvo,"Analakely, Antananarivo","[(""P_14"";3;""""),(""P_23"";2;""""),(""P_19"";2;""""),(""P_30"";2;""""),(""P_30"";3;"""")]",
+18/05/2026,Andry Client 76,client76@mail.com,I7E3JnQd,"67Ha, Antananarivo","[(""P_02"";4;""M""),(""P_17"";2;""""),(""P_16"";4;""Noir""),(""P_03"";4;""Rouge""),(""P_10"";3;""128GB"")]",paiement accepté
+18/05/2026,Rabe Client 83,client83@mail.com,ErnsWouw,"Ambatoroka, Antananarivo","[(""P_21"";2;""XL""),(""P_02"";2;""S""),(""P_06"";2;""L"")]",paiement accepté
+18/05/2026,Fitia Client 90,client90@mail.com,bA0IuGrU,"Ivandry, Antananarivo","[(""P_16"";1;""Noir""),(""P_25"";1;""32GB""),(""P_21"";3;""M"")]",paiement accepté
+18/05/2026,Fitia Client 92,client92@mail.com,B1cwvSVe,"Ambatoroka, Antananarivo","[(""P_02"";2;""M""),(""P_24"";4;""S"")]",paiement accepté
+18/05/2026,Fitia Client 99,client99@mail.com,7ZEXUp98,"Analakely, Antananarivo","[(""P_01"";4;""128GB"")]",paiement accepté
+19/05/2026,Andry Client 7,client7@mail.com,Uyo7GwEc,"Ivandry, Antananarivo","[(""P_12"";4;""Max"")]",paiement accepté
+19/05/2026,Voahangy Client 14,client14@mail.com,27vmnzky,"Ambatoroka, Antananarivo","[(""P_29"";2;""""),(""P_24"";2;""M""),(""P_17"";4;""""),(""P_09"";2;""Max""),(""P_25"";4;""32GB"")]",paiement accepté
+19/05/2026,Andry Client 21,client21@mail.com,bl15jHat,"Analakely, Antananarivo","[(""P_12"";4;""Max""),(""P_06"";4;""XL""),(""P_25"";3;""32GB""),(""P_12"";3;""Pro""),(""P_02"";3;""S"")]",paiement accepté
+19/05/2026,Andry Client 28,client28@mail.com,HNMvWPkf,"Mahamasina, Antananarivo","[(""P_22"";4;""L"")]",paiement accepté
+19/05/2026,Tahina Client 35,client35@mail.com,SLW53yYy,"Mahamasina, Antananarivo","[(""P_07"";3;"""")]",
+19/05/2026,Aina Client 42,client42@mail.com,hQ2IGTia,"67Ha, Antananarivo","[(""P_30"";3;""""),(""P_23"";3;""""),(""P_01"";1;""64GB""),(""P_06"";2;""XL""),(""P_09"";4;""Standard"")]",livré
+19/05/2026,Fanja Client 49,client49@mail.com,WSFU0V43,"Ambatoroka, Antananarivo","[(""P_08"";3;""""),(""P_17"";4;""""),(""P_08"";3;""""),(""P_16"";2;""Bleu""),(""P_11"";4;""XL"")]",paiement accepté
+19/05/2026,Fanja Client 56,client56@mail.com,AL2gLvhR,"Ivandry, Antananarivo","[(""P_05"";4;""""),(""P_02"";3;""M""),(""P_09"";3;""Max""),(""P_16"";3;""Blanc"")]",paiement accepté
+19/05/2026,Rakoto Client 61,client61@mail.com,1fnpKHSU,"Analakely, Antananarivo","[(""P_05"";2;""""),(""P_18"";1;""""),(""P_10"";1;""64GB"")]",paiement accepté
+19/05/2026,Fanja Client 70,client70@mail.com,Pbq4B6ga,"Analakely, Antananarivo","[(""P_13"";2;""Bleu""),(""P_28"";4;""""),(""P_10"";4;""128GB"")]",
+19/05/2026,Voahangy Client 77,client77@mail.com,xkJAxSEB,"Ankorondrano, Antananarivo","[(""P_21"";2;""M"")]",
+19/05/2026,Andry Client 84,client84@mail.com,SeVYdube,"Ambatoroka, Antananarivo","[(""P_20"";1;""32GB""),(""P_05"";1;"""")]",
+19/05/2026,Andry Client 91,client91@mail.com,zU0LIICM,"Mahamasina, Antananarivo","[(""P_28"";3;""""),(""P_05"";1;""""),(""P_08"";4;""""),(""P_26"";2;""M""),(""P_29"";4;"""")]",
+19/05/2026,Andry Client 93,client93@mail.com,Bl4T6plX,"Ambatoroka, Antananarivo","[(""P_18"";4;""""),(""P_10"";1;""128GB""),(""P_29"";4;"""")]",paiement accepté
+19/05/2026,Fanja Client 100,client100@mail.com,qo64dsFr,"Ambatoroka, Antananarivo","[(""P_07"";2;""""),(""P_01"";1;""64GB""),(""P_14"";1;"""")]",paiement accepté
