@@ -304,7 +304,7 @@ const duplicateCart = async (orderId, multiplicateur, dateUpdate) => {
             cart = await cartClass.getById(Number(order.cartId))
         }
 
-        CartService.duplicateCart(cart, multiplicateur, dateUpdate);
+        await CartService.duplicateCart(cart, multiplicateur, dateUpdate);
 
         console.log("aaaaaaaaaaaaa", cart, " a la date ", dateUpdate, " avec multiplicateur ", multiplicateur, " et orderId ", orderId);
         return { success: !!cart, cart, orderId: Number(orderId) }
