@@ -1,0 +1,68 @@
+/* Login screen — standalone, no sidebar. */
+
+.bo-app--login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 24px;
+    background:
+        radial-gradient(circle at 15% 15%, rgba(31, 75, 80, 0.05), transparent 45%),
+        radial-gradient(circle at 85% 85%, rgba(122, 46, 30, 0.04), transparent 50%),
+        var(--bo-bg);
+}
+
+.bo-app--login > div {
+    width: 100%;
+    max-width: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bo-app--login h1 {
+    font-family: var(--bo-font-serif);
+    font-size: 30px;
+    font-weight: 500;
+    margin-bottom: 28px;
+    padding-bottom: 0;
+    border-bottom: none;
+    text-align: center;
+}
+
+.bo-app--login h1::after {
+    content: "";
+    display: block;
+    width: 36px;
+    height: 1px;
+    background: var(--bo-accent);
+    margin: 14px auto 0;
+}
+
+.bo-app--login form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+    background: var(--bo-surface);
+    border: 1px solid var(--bo-border);
+    padding: 32px 28px;
+    border-radius: var(--bo-radius-lg);
+    box-shadow: var(--bo-shadow-lg);
+}
+
+.bo-app--login form input {
+    width: 100%;
+}
+
+.bo-app--login form button {
+    margin-top: 8px;
+    background: var(--bo-accent);
+    border-color: var(--bo-accent);
+}
+
+.bo-app--login form button:hover {
+    background: var(--bo-accent-hover);
+    border-color: var(--bo-accent-hover);
+}

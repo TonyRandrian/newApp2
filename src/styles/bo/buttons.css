@@ -1,0 +1,44 @@
+/* Buttons — default solid, submit accent, and table-inline variants. */
+
+.bo-app button,
+.bo-app input[type="submit"] {
+    appearance: none;
+    -webkit-appearance: none;
+    font: inherit;
+    font-weight: 500;
+    color: var(--bo-surface);
+    background: var(--bo-ink);
+    border: 1px solid var(--bo-ink);
+    border-radius: var(--bo-radius);
+    padding: 8px 18px;
+    min-height: 36px;
+    cursor: pointer;
+    transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease, transform 80ms ease;
+    letter-spacing: 0.01em;
+    font-family: var(--bo-font-sans);
+}
+
+.bo-app button:hover,
+.bo-app input[type="submit"]:hover {
+    background: var(--bo-accent);
+    border-color: var(--bo-accent);
+}
+
+.bo-app button:active {
+    transform: translateY(1px);
+}
+
+.bo-app button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.bo-app button[type="submit"] {
+    background: var(--bo-accent);
+    border-color: var(--bo-accent);
+}
+
+.bo-app button[type="submit"]:hover {
+    background: var(--bo-accent-hover);
+    border-color: var(--bo-accent-hover);
+}

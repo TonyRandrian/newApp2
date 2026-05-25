@@ -1,0 +1,59 @@
+/* BOReset — checklist of resources with select-all / validate buttons. */
+
+.bo-main > div:has(> div > input[type="checkbox"]) {
+    background: var(--bo-surface);
+    border: 1px solid var(--bo-border);
+    border-radius: var(--bo-radius-lg);
+    padding: 8px 0;
+    box-shadow: var(--bo-shadow-sm);
+}
+
+.bo-main > div:has(> div > input[type="checkbox"]) > div {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 24px;
+    border-bottom: 1px solid var(--bo-line);
+}
+
+.bo-main > div:has(> div > input[type="checkbox"]) > div:last-of-type {
+    border-bottom: none;
+}
+
+.bo-main > div:has(> div > input[type="checkbox"]) > div > label {
+    flex-direction: row;
+    align-items: center;
+    text-transform: none;
+    letter-spacing: 0;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--bo-ink-soft);
+    cursor: pointer;
+}
+
+.bo-main > div:has(> div > input[type="checkbox"]) > button {
+    margin: 16px 12px 12px;
+}
+
+.bo-main > div:has(> div > input[type="checkbox"]) > button:first-of-type {
+    background: var(--bo-surface);
+    color: var(--bo-ink-soft);
+    border-color: var(--bo-border-strong);
+}
+
+.bo-main > div:has(> div > input[type="checkbox"]) > button:first-of-type:hover {
+    background: var(--bo-bg-soft);
+    color: var(--bo-ink);
+    border-color: var(--bo-ink);
+}
+
+.bo-main > div:has(> div > input[type="checkbox"]) > button:last-of-type {
+    background: var(--bo-danger);
+    border-color: var(--bo-danger);
+    color: #fff;
+}
+
+.bo-main > div:has(> div > input[type="checkbox"]) > button:last-of-type:hover {
+    background: var(--bo-danger-hover);
+    border-color: var(--bo-danger-hover);
+}

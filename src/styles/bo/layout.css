@@ -1,0 +1,136 @@
+/* Main content area, sections, dashboard tiles, filter strips, page headers. */
+
+.bo-main {
+    flex: 1;
+    min-width: 0;
+    padding: 40px 48px 80px;
+    max-width: 1320px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.bo-app section {
+    background: var(--bo-surface);
+    border: 1px solid var(--bo-border);
+    border-radius: var(--bo-radius-lg);
+    padding: 24px 28px;
+    margin-bottom: 24px;
+    box-shadow: var(--bo-shadow-sm);
+}
+
+/* Dashboard summary tiles — first two sections inside the inner wrapper */
+.bo-main > div > section:nth-of-type(-n+2) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding: 24px 28px;
+}
+
+.bo-main > div > section:nth-of-type(-n+2) > div {
+    border-left: 2px solid var(--bo-accent);
+    padding: 4px 0 4px 16px;
+}
+
+.bo-main > div > section:nth-of-type(-n+2) > div > div {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--bo-muted);
+    margin-bottom: 6px;
+}
+
+.bo-main > div > section:nth-of-type(-n+2) > div > strong {
+    display: block;
+    font-family: var(--bo-font-serif);
+    font-weight: 500;
+    font-size: 26px;
+    color: var(--bo-ink);
+    letter-spacing: -0.01em;
+}
+
+/* Filter strip (dates + status + reset) */
+.bo-main > div > section:nth-of-type(3) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 16px;
+}
+
+.bo-main > div > section:nth-of-type(3) > label {
+    flex: 0 1 auto;
+}
+
+.bo-main > div > section:nth-of-type(3) > div {
+    margin-left: auto;
+}
+
+/* Bare date/filter row on Statistics page */
+.bo-main > div > div:has(> div > input[type="date"]) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 16px;
+    padding: 16px 20px;
+    background: var(--bo-surface);
+    border: 1px solid var(--bo-border);
+    border-radius: var(--bo-radius-lg);
+    margin-bottom: 20px;
+}
+
+.bo-main > div > div:has(> div > input[type="date"]) > div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--bo-muted);
+}
+
+.bo-main > div > div:has(> div > input[type="date"]) > button {
+    margin-left: auto;
+}
+
+/* Stock pages — <header> wrapping a title + filters */
+.bo-app header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    padding: 0 0 16px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--bo-border);
+}
+
+.bo-app header h4,
+.bo-app header h5 {
+    margin: 0;
+    font-family: var(--bo-font-serif);
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--bo-ink);
+}
+
+.bo-app header > div {
+    display: flex;
+    gap: 16px;
+    align-items: flex-end;
+    margin-left: auto;
+}
+
+.bo-app header label {
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* Inline result banners (BOOrderList uses inline style with backgroundColor) */
+.bo-app div[style*="backgroundColor"][style*="border"] {
+    border-radius: var(--bo-radius-lg) !important;
+    border-width: 0 0 0 3px !important;
+    padding: 14px 18px !important;
+    font-size: 13px;
+}

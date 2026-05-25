@@ -1,0 +1,120 @@
+/* Form controls — labels, inputs, selects, checkboxes, file inputs. */
+
+.bo-app label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--bo-muted);
+}
+
+.bo-app label > div:first-child,
+.bo-app label > span {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--bo-muted);
+}
+
+.bo-app input[type="text"],
+.bo-app input[type="password"],
+.bo-app input[type="email"],
+.bo-app input[type="number"],
+.bo-app input[type="date"],
+.bo-app input[type="search"],
+.bo-app select,
+.bo-app textarea {
+    appearance: none;
+    -webkit-appearance: none;
+    font: inherit;
+    color: var(--bo-ink);
+    background: var(--bo-surface);
+    border: 1px solid var(--bo-border-strong);
+    border-radius: var(--bo-radius);
+    padding: 8px 12px;
+    min-height: 36px;
+    transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.bo-app select {
+    padding-right: 32px;
+    background-image: linear-gradient(45deg, transparent 50%, var(--bo-muted) 50%),
+        linear-gradient(135deg, var(--bo-muted) 50%, transparent 50%);
+    background-position: calc(100% - 16px) 50%, calc(100% - 11px) 50%;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+}
+
+.bo-app input:focus,
+.bo-app select:focus,
+.bo-app textarea:focus {
+    outline: none;
+    border-color: var(--bo-accent);
+    box-shadow: 0 0 0 3px var(--bo-accent-soft);
+}
+
+.bo-app input[type="file"] {
+    font-size: 12px;
+    color: var(--bo-muted);
+    padding: 6px 0;
+    border: none;
+    min-height: auto;
+    background: transparent;
+}
+
+.bo-app input[type="file"]::file-selector-button {
+    font: inherit;
+    font-weight: 500;
+    color: var(--bo-ink);
+    background: var(--bo-surface);
+    border: 1px solid var(--bo-border-strong);
+    border-radius: var(--bo-radius);
+    padding: 6px 14px;
+    margin-right: 12px;
+    cursor: pointer;
+    transition: all 120ms ease;
+}
+
+.bo-app input[type="file"]::file-selector-button:hover {
+    border-color: var(--bo-ink);
+    background: var(--bo-bg-soft);
+}
+
+.bo-app input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--bo-border-strong);
+    border-radius: 2px;
+    background: var(--bo-surface);
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    transition: all 120ms ease;
+}
+
+.bo-app input[type="checkbox"]:hover {
+    border-color: var(--bo-accent);
+}
+
+.bo-app input[type="checkbox"]:checked {
+    background: var(--bo-accent);
+    border-color: var(--bo-accent);
+}
+
+.bo-app input[type="checkbox"]:checked::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 5px;
+    height: 9px;
+    border: solid #fff;
+    border-width: 0 1.5px 1.5px 0;
+    transform: rotate(45deg);
+}
