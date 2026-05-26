@@ -1,12 +1,14 @@
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import Category from "../backend/entities/Category.js";
+import {removeStockByCategory} from "../backend/services/import/RemoveStockService.js";
 
 function RemoveStock() {
     const navigate = useNavigate()
     const [categories, setCategories] = useState([])
     const [categoryId, setCategoryId] = useState("");
     const [qtt, setQtt] = useState("")
+    const [total, setTotal] = useState(0)
 
     useEffect(() => {
 
@@ -30,8 +32,11 @@ function RemoveStock() {
         }
     }, []);
 
-    const removeStock = () => {
-        console.log(qtt + " skfjs " + categoryId)
+    const removeStock = async () => {
+        console.log("Removing stock")
+        const total = await removeStockByCategory(categoryId, qtt)
+        setTotal(total)
+        console.log("stock removed")
     }
 
     return <div>
@@ -58,6 +63,7 @@ function RemoveStock() {
         <div>
             <button onClick={removeStock}>Valider</button>
         </div>
+        <h1>Total: {total}</h1>
     </div>
 }
 
