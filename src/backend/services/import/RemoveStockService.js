@@ -25,7 +25,7 @@ export async function removeStockByCategory(categoryId, quantityToRemove) {
             const quantityActual = Number(stock.quantity ?? 0)
             const delta = Math.min(quantityActual, Number(quantityToRemove));
 
-            totalNormal += Number(quantityToRemove)
+
 
             if (haveDeclinaison && psa.idProductAttribute === 0) {
                 continue
@@ -41,7 +41,7 @@ export async function removeStockByCategory(categoryId, quantityToRemove) {
                     priceTe: 0,
                     dateAdd: formatDateTime(new Date()),
                 })
-
+                totalNormal += Number(quantityToRemove)
                 await movement.save();
                 const updated = StockAvailable.fromData(stock)
                 updated.quantity = quantityActual - delta
