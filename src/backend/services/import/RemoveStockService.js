@@ -89,7 +89,6 @@ export async function removeStockByCategory(products, categoryId, quantityToRemo
 
 export async function addStockByCategory(products, categoryId, quantityToAdd, limite = 0) {
     const productsFilter = products.filter(p => String(p.idCategoryDefault) === String(categoryId))
-
     const result = {
         category: null,
         totalEffectives: [],
@@ -101,6 +100,7 @@ export async function addStockByCategory(products, categoryId, quantityToAdd, li
 
     let totalEffective = 0
     let totalExpected = 0
+
     const stockApi = new StockAvailable({}, false)
     console.log("Produits: ")
     console.log(productsFilter)
@@ -114,61 +114,56 @@ export async function addStockByCategory(products, categoryId, quantityToAdd, li
         for (const psa of prodStockAvailable) {
             const stock = await stockApi.getById(psa.id)
 
+            //const combination = combinationApi.getById()
             const quantityActual = Number(stock.quantity ?? 0)
             //const delta = Math.max(0, Math.min(quantityActual, Number(quantityToAdd)));
-            let toAdd = Number(quantityToAdd);
-            console.log("To add avant: " + toAdd)
 
-            if (limite > 0 && (quantityToAdd + quantityActual) > (limite) && quantityActual < limite) {
-                console.log("miditra if")
-                console.log("limite: " + limite)
-                console.log("quantity actual: " + quantityActual)
-                toAdd = Number(limite - quantityActual)
-            }
+            let toAdd = Number(quantityToAdd)
 
-            console.log("To add: " + toAdd)
+            if (Number(quantityActual) + toAdd > limite) {
+                toAdd = Number(limite - Number(quantityActual))
 
-
-            if (quantityActual < limite) {
-                if (haveDeclinaison && psa.idProductAttribute === 0) {
-                    continue
-                } else {
-                    const movement = StockMvt.fromData({
-                        idStock: stock.id,
-                        idProduct: product.id,
-                        idProductAttribute: psa.idProductAttribute,
-                        physicalQuantity: toAdd,
-                        sign: 1,
-                        idStockMvtReason: 1,
-                        idEmployee: 1,
-                        priceTe: 0,
-                        dateAdd: formatDateTime(new Date()),
-                    })
-
-                    totalExpected += Number(toAdd)
-                    await movement.save();
-                    const updated = StockAvailable.fromData(stock)
-                    updated.quantity = Number(quantityActual + toAdd)
-                    await updated.update()
+                if (quantityActual >= limite) {
+                    toAdd = Number(0)
                 }
             }
 
+            if (haveDeclinaison && psa.idProductAttribute === 0) {
+                continue
+            } else {
+                const movement = StockMvt.fromData({
+                    idStock: stock.id,
+                    idProduct: product.id,
+                    idProductAttribute: psa.idProductAttribute,
+                    physicalQuantity: toAdd,
+                    sign: -1,
+                    idStockMvtReason: 2,
+                    idEmployee: 1,
+                    priceTe: 0,
+                    dateAdd: formatDateTime(new Date()),
+                })
+                totalExpected += Number(quantityToAdd)
+                await movement.save();
+                const updated = StockAvailable.fromData(stock)
+                updated.quantity = Number(quantityActual) + toAdd
+                await updated.update()
+            }
+
+            totalEffective += Number(toAdd)
+
             const totalEffectiveChild = {
                 product: product,
-                productAttributeId: toAdd,
+                productAttributeId: psa.idProductAttribute,
                 totalEffective: totalEffective
             }
 
             result.totalEffectives.push(totalEffectiveChild)
-
-            totalEffective += Number(quantityToAdd)
         }
     }
 
     console.log("Category id " + categoryId)
-    console.log("Tena nampiana: " + totalExpected)
-    console.log("Tokony nampiana: " + totalEffective)
-
+    console.log("Tokony niala: " + totalExpected)
+    console.log("Tena niala: " + totalEffective)
     result.totalEffective = totalEffective
     return result
 }
