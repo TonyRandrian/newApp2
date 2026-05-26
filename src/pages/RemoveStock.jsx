@@ -1,7 +1,7 @@
 import {useEffect, useMemo, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import Category from "../backend/entities/Category.js";
-import {removeStockByCategory} from "../backend/services/import/RemoveStockService.js";
+import {removeStockByCategory, updateStockByCategory} from "../backend/services/import/RemoveStockService.js";
 
 function RemoveStock() {
     const navigate = useNavigate()
@@ -13,6 +13,7 @@ function RemoveStock() {
     const [total, setTotal] = useState({})
     const [isLoading, setIsLoading] = useState(true);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [limite, setLimite] = useState("0")
 
     useEffect(() => {
         const password = prompt("Entrez mot de passe: ")
@@ -40,11 +41,10 @@ function RemoveStock() {
         return categories.filter((category) => String(category?.name ?? "").trim() !== "");
     }, [categories]);
 
-    const removeStock = async () => {
-        if (!categoryId || !qtt) return;
+    const handleSubmit = async () => {
         setIsSubmitting(true);
         try {
-            const result = await removeStockByCategory(categoryId, qtt)
+            const result = await updateStockByCategory(categoryIdAdd, qttAdd, categoryIdRemove, qttRemove)
             setTotal(result)
         } catch (error) {
             console.error("Error removing stock:", error)
@@ -91,6 +91,13 @@ function RemoveStock() {
                                     </option>
                                 ))}
                             </select>
+                            <label className="fo-filter__label">Limite</label>
+                            <input
+                                type="number"
+                                placeholder="Rechercher un nom"
+                                value={limite}
+                                onChange={(e) => setLimite(e.target.value)}
+                            />
                         </div>
                         <div className="fo-filter">
                             <label className="fo-filter__label">Quantité</label>
@@ -136,7 +143,7 @@ function RemoveStock() {
                         <button
                             type="button"
                             className="fo-btn--primary"
-                            onClick={removeStock}
+                            onClick={handleSubmit}
                         >
                             {isSubmitting ? "Traitement…" : "Valider"}
                         </button>
