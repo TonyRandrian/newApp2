@@ -23,9 +23,7 @@ export async function removeStockByCategory(categoryId, quantityToRemove) {
             const stock = await stockApi.getById(psa.id)
 
             const quantityActual = Number(stock.quantity ?? 0)
-            const delta = Math.min(quantityActual, Number(quantityToRemove));
-
-
+            const delta = Math.max(0, Math.min(quantityActual, Number(quantityToRemove)));
 
             if (haveDeclinaison && psa.idProductAttribute === 0) {
                 continue
