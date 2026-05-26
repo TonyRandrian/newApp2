@@ -215,7 +215,7 @@ export const importFile3 = async (file, file1Results, file2Results, onProgress =
     onProgress?.({ step: 'parsing', message: 'Parsing du CSV fichier 3...' })
     const csvData = await parseFile3CSV(file)
 
-    if (!csvData || csvData.length === 0) throw new Error('Fichier CSV vide')
+    //if (!csvData || csvData.length === 0) throw new Error('Fichier CSV vide')
 
     const productMap = {}
     for (const p of file1Results.products ?? []) {

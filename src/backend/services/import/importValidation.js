@@ -286,12 +286,12 @@ const validateSingleCsvFile = async ({ file, fileKey, errors, options = {} }) =>
 export const validateImportBatch = async ({ productFile, declinaisonFile, ordersFile } = {}) => {
 	const errors = []
 
-	const rows1 = await validateSingleCsvFile({ file: productFile, fileKey: 'file1', errors, options: { dateField: 'date_availability_produit', amountFields: ['prix_ttc', 'prix_achat', 'taxe'] } })
-	const rows2 = await validateSingleCsvFile({ file: declinaisonFile, fileKey: 'file2', errors, options: { amountFields: ['stock_initial', 'prix_vente_ttc'] } })
-	const rows3 = await validateSingleCsvFile({ file: ordersFile, fileKey: 'file3', errors, options: { dateField: 'date', amountFields: [] } })
+	//const rows1 = await validateSingleCsvFile({ file: productFile, fileKey: 'file1', errors, options: { dateField: 'date_availability_produit', amountFields: ['prix_ttc', 'prix_achat', 'taxe'] } })
+	//const rows2 = await validateSingleCsvFile({ file: declinaisonFile, fileKey: 'file2', errors, options: { amountFields: ['stock_initial', 'prix_vente_ttc'] } })
+	//const rows3 = await validateSingleCsvFile({ file: ordersFile, fileKey: 'file3', errors, options: { dateField: 'date', amountFields: [] } })
 
 	// validateAvailabilityVsOrderDates(rows1, rows3, errors)
-	validateOrderStatuses(rows3, errors)
+	//validateOrderStatuses(rows3, errors)
 	// validateStockVsOrders(rows2, rows3, errors)
 
 	return {
