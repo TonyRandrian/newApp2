@@ -20,7 +20,8 @@ export async function removeStockByCategory(products, categoryId, quantityToRemo
     const productsFilter = products.filter(p => String(p.idCategoryDefault) === String(categoryId))
     const result = {
         category: null,
-        totalEffective: []
+        totalEffectives: [],
+        totalEffective: 0
     }
 
     const categoryApi = new Category({}, false);
@@ -75,13 +76,14 @@ export async function removeStockByCategory(products, categoryId, quantityToRemo
                 totalEffective: Math.min(quantityActual, Number(quantityToRemove))
             }
 
-            result.totalEffective.push(totalEffectiveChild)
+            result.totalEffectives.push(totalEffectiveChild)
         }
     }
 
     console.log("Category id " + categoryId)
     console.log("Tokony niala: " + totalExpected)
     console.log("Tena niala: " + totalEffective)
+    result.totalEffective = totalEffective
     return result
 }
 
@@ -90,7 +92,8 @@ export async function addStockByCategory(products, categoryId, quantityToAdd, li
 
     const result = {
         category: null,
-        totalEffective: []
+        totalEffectives: [],
+        totalEffective: 0
     }
 
     const categoryApi = new Category({}, false);
@@ -156,7 +159,7 @@ export async function addStockByCategory(products, categoryId, quantityToAdd, li
                 totalEffective: totalEffective
             }
 
-            result.totalEffective.push(totalEffectiveChild)
+            result.totalEffectives.push(totalEffectiveChild)
 
             totalEffective += Number(quantityToAdd)
         }
@@ -166,7 +169,7 @@ export async function addStockByCategory(products, categoryId, quantityToAdd, li
     console.log("Tena nampiana: " + totalExpected)
     console.log("Tokony nampiana: " + totalEffective)
 
-
+    result.totalEffective = totalEffective
     return result
 }
 

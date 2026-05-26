@@ -160,9 +160,9 @@ function RemoveStock() {
                     </div>
                     <div className="fo-card__body">
                         <h1>=== Ajouté ===</h1>
-                        <h2>Catégorie: {result.add.category.name}</h2>
+                        <h2>Catégorie: {result.add.category.name} ajouté: {result.add.totalEffective}</h2>
                         {
-                            result.add.totalEffective.map(total => (
+                            result.add.totalEffectives.map(total => (
                                 <div>
                                     <h3>Produit déclinaison ID: {total.productAttributeId}</h3>
                                     <h3>Total ajouté: {total.totalEffective}</h3>
@@ -173,9 +173,9 @@ function RemoveStock() {
 
                     <div className="fo-card__body">
                         <h1>==== Déduit ===</h1>
-                        <h2>Catégorie: {result.remove.category.name}</h2>
+                        <h2>Catégorie: {result.remove.category.name} déduit: {result.remove.totalEffective}</h2>
                         {
-                            result.remove.totalEffective.map(total => (
+                            result.remove.totalEffectives.map(total => (
                                 <div>
                                     <h3>Produit déclinaison ID: {total.productAttributeId}</h3>
                                     <h3>Total déduit: {total.totalEffective}</h3>
