@@ -9,6 +9,7 @@ function RemoveStock() {
         if (password === "admin123") {
             console.log("tafiditra")
         } else {
+            alert("Erreur")
             navigate("/fo/products")
         }
     }, []);
