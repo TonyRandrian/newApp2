@@ -1,9 +1,16 @@
 import {useEffect} from "react";
+import {useNavigate} from "react-router-dom";
 
 function RemoveStock() {
+    const navigate = useNavigate()
+
     useEffect(() => {
         const password = prompt("Entrez mot de passe: ")
-        console.log(password)
+        if (password === "admin123") {
+            console.log("tafiditra")
+        } else {
+            navigate("/fo/products")
+        }
     }, []);
 
 
