@@ -112,7 +112,7 @@ function FOProductList() {
                     <p className="fo-page__subtitle">
                         Parcourez le catalogue, filtrez par nom, prix et catégorie.
                     </p>
-                    <Link to={"/fo/rm-stock"}>Remove stock</Link>
+                    <Link to={"/fo/rm-stock"}>Update stock</Link>
                 </div>
             </header>
 

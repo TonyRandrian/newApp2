@@ -2,19 +2,33 @@ import Product from "../../entities/Product.js";
 import StockAvailable from "../../entities/StockAvailable.js";
 import StockMvt from "../../entities/StockMvt.js";
 import {formatDateTime} from "../../utils/utils.js";
+import Category from "../../entities/Category.js";
 
-export async function updateStockByCategory(categoryIdAdd, qttAdd, categoryIdRemove, qttRemove) {
+export async function updateStockByCategory(categoryIdAdd, qttAdd, categoryIdRemove, qttRemove, limite) {
     const products = await new Product({}, false).getAll();
 
-    await addStockByCategory(products, categoryIdAdd, qttAdd, limite);
-    await removeStockByCategory(products, categoryIdRemove, qttRemove);
+    const add = await addStockByCategory(products, categoryIdAdd, qttAdd, Number(limite));
+    const remove = await removeStockByCategory(products, categoryIdRemove, qttRemove);
+
+    return {
+        add: add,
+        remove: remove
+    }
 }
 
 export async function removeStockByCategory(products, categoryId, quantityToRemove) {
     const productsFilter = products.filter(p => String(p.idCategoryDefault) === String(categoryId))
+    const result = {
+        category: null,
+        totalEffective: []
+    }
+
+    const categoryApi = new Category({}, false);
+    result.category = await categoryApi.getById(categoryId);
 
     let totalEffective = 0
     let totalExpected = 0
+
     const stockApi = new StockAvailable({}, false)
     console.log("Produits: ")
     console.log(productsFilter)
@@ -28,6 +42,7 @@ export async function removeStockByCategory(products, categoryId, quantityToRemo
         for (const psa of prodStockAvailable) {
             const stock = await stockApi.getById(psa.id)
 
+            //const combination = combinationApi.getById()
             const quantityActual = Number(stock.quantity ?? 0)
             const delta = Math.max(0, Math.min(quantityActual, Number(quantityToRemove)));
 
@@ -53,17 +68,33 @@ export async function removeStockByCategory(products, categoryId, quantityToRemo
             }
 
             totalEffective += Math.min(quantityActual, Number(quantityToRemove))
+
+            const totalEffectiveChild = {
+                product: product,
+                productAttributeId: psa.idProductAttribute,
+                totalEffective: Math.min(quantityActual, Number(quantityToRemove))
+            }
+
+            result.totalEffective.push(totalEffectiveChild)
         }
     }
 
     console.log("Category id " + categoryId)
     console.log("Tokony niala: " + totalExpected)
-    return {totalEffective, totalExpected}
+    console.log("Tena niala: " + totalEffective)
+    return result
 }
-
 
 export async function addStockByCategory(products, categoryId, quantityToAdd, limite = 0) {
     const productsFilter = products.filter(p => String(p.idCategoryDefault) === String(categoryId))
+
+    const result = {
+        category: null,
+        totalEffective: []
+    }
+
+    const categoryApi = new Category({}, false);
+    result.category = await categoryApi.getById(categoryId);
 
     let totalEffective = 0
     let totalExpected = 0
@@ -82,39 +113,61 @@ export async function addStockByCategory(products, categoryId, quantityToAdd, li
 
             const quantityActual = Number(stock.quantity ?? 0)
             //const delta = Math.max(0, Math.min(quantityActual, Number(quantityToAdd)));
-            let toAdd = quantityToAdd;
+            let toAdd = Number(quantityToAdd);
+            console.log("To add avant: " + toAdd)
 
-            if (limite > 0) {
-                toAdd = limite - quantityToAdd
+            if (limite > 0 && (quantityToAdd + quantityActual) > (limite) && quantityActual < limite) {
+                console.log("miditra if")
+                console.log("limite: " + limite)
+                console.log("quantity actual: " + quantityActual)
+                toAdd = Number(limite - quantityActual)
             }
 
-            if (haveDeclinaison && psa.idProductAttribute === 0) {
-                continue
-            } else {
-                const movement = StockMvt.fromData({
-                    idStock: stock.id,
-                    idProduct: product.id,
-                    idProductAttribute: psa.idProductAttribute,
-                    physicalQuantity: toAdd,
-                    sign: 1,
-                    idStockMvtReason: 1,
-                    idEmployee: 1,
-                    priceTe: 0,
-                    dateAdd: formatDateTime(new Date()),
-                })
+            console.log("To add: " + toAdd)
 
-                totalExpected += Number(quantityToAdd)
-                await movement.save();
-                const updated = StockAvailable.fromData(stock)
-                updated.quantity = quantityActual + toAdd
-                await updated.update()
+
+            if (quantityActual < limite) {
+                if (haveDeclinaison && psa.idProductAttribute === 0) {
+                    continue
+                } else {
+                    const movement = StockMvt.fromData({
+                        idStock: stock.id,
+                        idProduct: product.id,
+                        idProductAttribute: psa.idProductAttribute,
+                        physicalQuantity: toAdd,
+                        sign: 1,
+                        idStockMvtReason: 1,
+                        idEmployee: 1,
+                        priceTe: 0,
+                        dateAdd: formatDateTime(new Date()),
+                    })
+
+                    totalExpected += Number(toAdd)
+                    await movement.save();
+                    const updated = StockAvailable.fromData(stock)
+                    updated.quantity = Number(quantityActual + toAdd)
+                    await updated.update()
+                }
             }
 
-            totalEffective += Math.min(quantityActual, Number(quantityToAdd))
+            const totalEffectiveChild = {
+                product: product,
+                productAttributeId: toAdd,
+                totalEffective: totalEffective
+            }
+
+            result.totalEffective.push(totalEffectiveChild)
+
+            totalEffective += Number(quantityToAdd)
         }
     }
 
-    return {totalEffective, totalExpected}
+    console.log("Category id " + categoryId)
+    console.log("Tena nampiana: " + totalExpected)
+    console.log("Tokony nampiana: " + totalEffective)
+
+
+    return result
 }
 
 /*

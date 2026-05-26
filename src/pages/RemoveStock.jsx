@@ -1,7 +1,7 @@
 import {useEffect, useMemo, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import Category from "../backend/entities/Category.js";
-import {removeStockByCategory, updateStockByCategory} from "../backend/services/import/RemoveStockService.js";
+import {updateStockByCategory} from "../backend/services/import/RemoveStockService.js";
 
 function RemoveStock() {
     const navigate = useNavigate()
@@ -10,14 +10,14 @@ function RemoveStock() {
     const [qttAdd, setQttAdd] = useState("")
     const [categoryIdRemove, setCategoryIdRemove] = useState("");
     const [qttRemove, setQttRemove] = useState("")
-    const [total, setTotal] = useState({})
+    const [result, setResult] = useState(null)
     const [isLoading, setIsLoading] = useState(true);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [limite, setLimite] = useState("0")
 
     useEffect(() => {
         const password = prompt("Entrez mot de passe: ")
-        if (password === "admin123") {
+        if (password === "admin") {
             const loadCategories = async () => {
                 try {
                     const categoryApi = new Category({}, false);
@@ -44,8 +44,8 @@ function RemoveStock() {
     const handleSubmit = async () => {
         setIsSubmitting(true);
         try {
-            const result = await updateStockByCategory(categoryIdAdd, qttAdd, categoryIdRemove, qttRemove)
-            setTotal(result)
+            const result = await updateStockByCategory(categoryIdAdd, qttAdd, categoryIdRemove, qttRemove, limite)
+            setResult(result)
         } catch (error) {
             console.error("Error removing stock:", error)
         } finally {
@@ -53,7 +53,7 @@ function RemoveStock() {
         }
     }
 
-    const hasResult = total && (total.total !== undefined || total.totalNormal !== undefined);
+    const hasResult = result
 
     return (
         <div className="fo-page">
@@ -159,16 +159,29 @@ function RemoveStock() {
                         </div>
                     </div>
                     <div className="fo-card__body">
-                        <div className="fo-filters">
-                            <div className="fo-filter">
-                                <label className="fo-filter__label">Total</label>
-                                <strong>{total.total ?? 0}</strong>
-                            </div>
-                            <div className="fo-filter">
-                                <label className="fo-filter__label">Total dû</label>
-                                <strong>{total.totalNormal ?? 0}</strong>
-                            </div>
-                        </div>
+                        <h1>=== Ajouté ===</h1>
+                        <h2>Catégorie: {result.add.category.name}</h2>
+                        {
+                            result.add.totalEffective.map(total => (
+                                <div>
+                                    <h3>Produit déclinaison ID: {total.productAttributeId}</h3>
+                                    <h3>Total ajouté: {total.totalEffective}</h3>
+                                </div>
+                            ))
+                        }
+                    </div>
+
+                    <div className="fo-card__body">
+                        <h1>==== Déduit ===</h1>
+                        <h2>Catégorie: {result.remove.category.name}</h2>
+                        {
+                            result.remove.totalEffective.map(total => (
+                                <div>
+                                    <h3>Produit déclinaison ID: {total.productAttributeId}</h3>
+                                    <h3>Total déduit: {total.totalEffective}</h3>
+                                </div>
+                            ))
+                        }
                     </div>
                 </div>
             ) : null}
