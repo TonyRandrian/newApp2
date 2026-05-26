@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import { useEffect, useState, useMemo } from "react";
 import Product from "../backend/entities/Product.js";
 import Category from "../backend/entities/Category.js";
@@ -112,6 +112,7 @@ function FOProductList() {
                     <p className="fo-page__subtitle">
                         Parcourez le catalogue, filtrez par nom, prix et catégorie.
                     </p>
+                    <Link to={"/fo/rm-stock"}>Remove stock</Link>
                 </div>
             </header>
 

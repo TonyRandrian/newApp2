@@ -1,0 +1,3 @@
+Dans la page d'accueil FO, dans la liste produit, ajouter lien "Remove stock", une fois cliqué,
+ ça demande le mot de passe admin, si faux: erreur 
+si vrai: popup: choix catégorie (exemple habillement) et quantité de stock à réduire, on prend max entre (0 et quantité - qtt entrée) donc pas d'erreur "stock insuffisant" ensuite montrer un tableau des quantités réellement déduites. Ex: si produit A n'avait que 3 en stock pourtant on a retiré 5 alors on a retiré 3, si par contre 10 par exemple alors on a enlevé 5 on veut la somme pas les détails

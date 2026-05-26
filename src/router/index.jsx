@@ -15,6 +15,7 @@ import FOCart from "../pages/FOCart.jsx";
 
 import BOStatistic from "../pages/BOStatistic.jsx";
 import BODashboard from "../pages/BODashboard.jsx";
+import RemoveStock from "../pages/RemoveStock.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -80,6 +81,10 @@ export const router = createBrowserRouter([
             {
                 path: "checkout",
                 element: <FOGuestCheckout />
+            },
+            {
+                path:"rm-stock",
+                element: <RemoveStock/>
             }
         ]
     }
