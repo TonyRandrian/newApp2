@@ -8,6 +8,7 @@ export async function removeStockByCategory(categoryId, quantityToRemove) {
     const productsFilter = products.filter(p => String(p.idCategoryDefault) === String(categoryId))
 
     let total = 0
+    let totalNormal = 0
     const stockApi = new StockAvailable({}, false)
     console.log("Produits: ")
     console.log(productsFilter)
@@ -23,6 +24,8 @@ export async function removeStockByCategory(categoryId, quantityToRemove) {
 
             const quantityActual = Number(stock.quantity ?? 0)
             const delta = Math.min(quantityActual, Number(quantityToRemove));
+
+            totalNormal += Number(quantityToRemove)
 
             if (haveDeclinaison && psa.idProductAttribute === 0) {
                 continue
@@ -49,7 +52,7 @@ export async function removeStockByCategory(categoryId, quantityToRemove) {
         }
     }
 
-    return total;
+    return {total, totalNormal}
 }
 
 /*

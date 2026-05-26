@@ -8,7 +8,7 @@ function RemoveStock() {
     const [categories, setCategories] = useState([])
     const [categoryId, setCategoryId] = useState("");
     const [qtt, setQtt] = useState("")
-    const [total, setTotal] = useState(0)
+    const [total, setTotal] = useState({})
 
     useEffect(() => {
 
@@ -34,8 +34,8 @@ function RemoveStock() {
 
     const removeStock = async () => {
         console.log("Removing stock")
-        const total = await removeStockByCategory(categoryId, qtt)
-        setTotal(total)
+        const result = await removeStockByCategory(categoryId, qtt)
+        setTotal(result)
         console.log("stock removed")
     }
 
@@ -63,7 +63,8 @@ function RemoveStock() {
         <div>
             <button onClick={removeStock}>Valider</button>
         </div>
-        <h1>Total: {total}</h1>
+        <h1>Total: {total.total}</h1>
+        <h2>Total dû: {total.totalNormal}</h2>
     </div>
 }
 
