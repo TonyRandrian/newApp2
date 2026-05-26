@@ -46,7 +46,7 @@ export async function removeStockByCategory(categoryId, quantityToRemove) {
                 await updated.update()
             }
 
-            total += delta
+            total += Math.min(quantityActual, Number(quantityToRemove))
         }
     }
 
