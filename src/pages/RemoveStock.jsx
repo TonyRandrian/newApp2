@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import Category from "../backend/entities/Category.js";
 import {removeStockByCategory} from "../backend/services/import/RemoveStockService.js";
@@ -9,19 +9,21 @@ function RemoveStock() {
     const [categoryId, setCategoryId] = useState("");
     const [qtt, setQtt] = useState("")
     const [total, setTotal] = useState({})
+    const [isLoading, setIsLoading] = useState(true);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
-
         const password = prompt("Entrez mot de passe: ")
         if (password === "admin123") {
             const loadCategories = async () => {
                 try {
                     const categoryApi = new Category({}, false);
-                    const categoryList = await categoryApi.getExcl([1, 2]);
-
+                    const categoryList = await categoryApi.getExclApi([1, 2]);
                     setCategories(categoryList);
                 } catch (error) {
                     console.error("Error fetching categories:", error);
+                } finally {
+                    setIsLoading(false);
                 }
             };
 
@@ -32,40 +34,109 @@ function RemoveStock() {
         }
     }, []);
 
+    const selectableCategories = useMemo(() => {
+        return categories.filter((category) => String(category?.name ?? "").trim() !== "");
+    }, [categories]);
+
     const removeStock = async () => {
-        console.log("Removing stock")
-        const result = await removeStockByCategory(categoryId, qtt)
-        setTotal(result)
-        console.log("stock removed")
+        if (!categoryId || !qtt) return;
+        setIsSubmitting(true);
+        try {
+            const result = await removeStockByCategory(categoryId, qtt)
+            setTotal(result)
+        } catch (error) {
+            console.error("Error removing stock:", error)
+        } finally {
+            setIsSubmitting(false);
+        }
     }
 
-    return <div>
-        <div className="fo-filter">
-            <label className="fo-filter__label">Catégorie</label>
-            <select
-                value={categoryId}
-                onChange={(e) => setCategoryId(e.target.value)}
-            >
-                {categories.map((category, index) => (
-                    <option key={`${category.id}-${index}`} value={category.id}>
-                        {category.name}
-                    </option>
-                ))}
-            </select>
+    const hasResult = total && (total.total !== undefined || total.totalNormal !== undefined);
+
+    return (
+        <div className="fo-page">
+            <header className="fo-page__head">
+                <div className="fo-page__heading">
+                    <span className="fo-page__eyebrow">Gestion du stock</span>
+                    <h1 className="fo-page__title">Retirer du stock</h1>
+                    <p className="fo-page__subtitle">
+                        Sélectionnez une catégorie et une quantité à retirer du stock.
+                    </p>
+                </div>
+            </header>
+
+            <div className="fo-card">
+                <div className="fo-card__head">
+                    <div className="fo-card__heading">
+                        <h2 className="fo-card__title">Paramètres</h2>
+                    </div>
+                </div>
+                <div className="fo-card__body">
+                    <div className="fo-filters">
+                        <div className="fo-filter">
+                            <label className="fo-filter__label">Catégorie</label>
+                            <select
+                                value={categoryId}
+                                onChange={(e) => setCategoryId(e.target.value)}
+                                disabled={isLoading}
+                            >
+                                <option value="">
+                                    {isLoading ? "Chargement…" : "Sélectionnez une catégorie"}
+                                </option>
+                                {selectableCategories.map((category, index) => (
+                                    <option key={`${category.id}-${index}`} value={category.id}>
+                                        {category.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="fo-filter">
+                            <label className="fo-filter__label">Quantité</label>
+                            <input
+                                type="number"
+                                placeholder="0"
+                                value={qtt}
+                                min={0}
+                                onChange={(e) => setQtt(e.target.value)}
+                            />
+                        </div>
+                    </div>
+                    <div className="fo-card__actions">
+                        <button
+                            type="button"
+                            className="fo-btn--primary"
+                            onClick={removeStock}
+                            disabled={isSubmitting || !categoryId || !qtt}
+                        >
+                            {isSubmitting ? "Traitement…" : "Valider"}
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            {hasResult ? (
+                <div className="fo-card">
+                    <div className="fo-card__head">
+                        <div className="fo-card__heading">
+                            <h2 className="fo-card__title">Résultat</h2>
+                        </div>
+                    </div>
+                    <div className="fo-card__body">
+                        <div className="fo-filters">
+                            <div className="fo-filter">
+                                <label className="fo-filter__label">Total</label>
+                                <strong>{total.total ?? 0}</strong>
+                            </div>
+                            <div className="fo-filter">
+                                <label className="fo-filter__label">Total dû</label>
+                                <strong>{total.totalNormal ?? 0}</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ) : null}
         </div>
-        <div>
-            QUANTITE
-            <input
-                type={"number"}
-                onChange={(e) => setQtt(e.target.value)}
-            />
-        </div>
-        <div>
-            <button onClick={removeStock}>Valider</button>
-        </div>
-        <h1>Total: {total.total}</h1>
-        <h2>Total dû: {total.totalNormal}</h2>
-    </div>
+    );
 }
 
 export default RemoveStock;
