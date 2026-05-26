@@ -33,7 +33,6 @@ const buildDeliveryOption = (addressId, carrierId = DEFAULT_CARRIER_ID) => {
 
 const isCartActive = async (idCart) => {
     const orderApi = new Order({}, false);
-    // const xml = orderApi.getBy("id_cart",idCart);
     const xml = await api.get(`${orderApi.endpoint}?display=full&filter[id_cart]=[${idCart}]`);
     const orders = toOrderJSONList(xml);
     return orders.length === 0;
@@ -41,12 +40,9 @@ const isCartActive = async (idCart) => {
 
 const getLastCartByCustomer = async (idCustomer) => {
     const cartApi = new Cart({}, false);
-
-        const response = await api.get(
-            `${cartApi.endpoint}?display=full&filter[id_customer]=[${idCustomer}]`
-        );
-
-    // const response = await cartApi.getBy("id_customer", idCustomer);
+    const response = await api.get(
+        `${cartApi.endpoint}?display=full&filter[id_customer]=[${idCustomer}]`
+    );
 
     const carts = toJSONList(response);
 
@@ -66,7 +62,7 @@ const getLastCartByCustomer = async (idCustomer) => {
 };
 
 
-const createOrUpdateCart  = async (idCustomer, date = new Date(), initialRows = []) => {    
+const createOrUpdateCart  = async (idCustomer, date = new Date(), initialRows = [], forceNewCart = false) => {    
 
     const dateUsed = ensureLocalDateTime(date)
 
@@ -76,7 +72,7 @@ const createOrUpdateCart  = async (idCustomer, date = new Date(), initialRows = 
     const address = await customer.getAddress();
     
     const customerCart = await getLastCartByCustomer(idCustomer);
-    if (customerCart && await isCartActive(customerCart.id)) {
+    if (!forceNewCart && customerCart && await isCartActive(customerCart.id)) {
         return { cart: customerCart, isNew: false };
     }
 
@@ -137,7 +133,7 @@ const deleteItems = async (cart, rowIndex) => {
     return cart;
 }
 
-const addProductToCart = async (idCustomer, idProduct, idProductAttribute, quantity, multiplicateur = 1) => {
+const addProductToCart = async (idCustomer, idProduct, idProductAttribute, quantity, multiplicateur = 1, forceNewCart = false, date = new Date()) => {
     const factor = Number(multiplicateur) || 1;
     const safeQty = Math.max(1, Math.trunc((Number(quantity) || 0) * factor));
 
@@ -148,7 +144,7 @@ const addProductToCart = async (idCustomer, idProduct, idProductAttribute, quant
         addressDeliveryId: 0,
     };
 
-    const { cart, isNew } = await createOrUpdateCart(idCustomer, new Date(), [cartRow]);
+    const { cart, isNew } = await createOrUpdateCart(idCustomer, date, [cartRow], forceNewCart);
     if (isNew) {
         return cart;
     }
@@ -160,10 +156,14 @@ const addProductToCart = async (idCustomer, idProduct, idProductAttribute, quant
 }
 
 const duplicateCart = async(cart, multiplicateur, dateUpdate) => {
-    for (const row of cart.cartRows) {
+    let duplicatedCart = null
+
+    for (const [index, row] of cart.cartRows.entries()) {
         row.quantity = Number(row.quantity) * multiplicateur
-        await addProductToCart(cart.customerId, row.productId, row.productAttributeId, row.quantity);
-    }   
+        duplicatedCart = await addProductToCart(cart.customerId, row.productId, row.productAttributeId, row.quantity, 1, index === 0, dateUpdate)
+    }
+
+    return duplicatedCart
 }
 
 const getProductForRow = async (cartRow) => {
@@ -252,9 +252,9 @@ const getCartTotals = (cart) => {
         const qty = Number(row?.quantity || 0);
         const baseTtc = Number(row?.baseTtcPrice || 0);
         const taxRate = Number(row?.taxRate || 0);
-        const selectedId = Number(row?.selectedOptionId || 0);
-        const selected = (row?.options || []).find((value) => Number(value.id) === selectedId);
-        const impact = selected ? Number(selected.priceImpact || 0) : 0;
+        const selectedOptionId = Number(row?.selectedOptionId || 0);
+        const selectedOption = (row?.options || []).find((option) => Number(option.id) === selectedOptionId) || null;
+        const impact = Number(row?.selectedOptionImpact ?? selectedOption?.priceImpact ?? 0);
         const divisor = 1 + taxRate / 100;
         const baseHt = divisor ? baseTtc / divisor : 0;
 
