@@ -6,8 +6,10 @@ import {removeStockByCategory} from "../backend/services/import/RemoveStockServi
 function RemoveStock() {
     const navigate = useNavigate()
     const [categories, setCategories] = useState([])
-    const [categoryId, setCategoryId] = useState("");
-    const [qtt, setQtt] = useState("")
+    const [categoryIdAdd, setCategoryIdAdd] = useState("0");
+    const [qttAdd, setQttAdd] = useState("")
+    const [categoryIdRemove, setCategoryIdRemove] = useState("");
+    const [qttRemove, setQttRemove] = useState("")
     const [total, setTotal] = useState({})
     const [isLoading, setIsLoading] = useState(true);
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -74,10 +76,10 @@ function RemoveStock() {
                 <div className="fo-card__body">
                     <div className="fo-filters">
                         <div className="fo-filter">
-                            <label className="fo-filter__label">Catégorie</label>
+                            <label className="fo-filter__label">Catégorie à AJOUTER</label>
                             <select
-                                value={categoryId}
-                                onChange={(e) => setCategoryId(e.target.value)}
+                                value={categoryIdAdd}
+                                onChange={(e) => setCategoryIdAdd(e.target.value)}
                                 disabled={isLoading}
                             >
                                 <option value="">
@@ -95,9 +97,38 @@ function RemoveStock() {
                             <input
                                 type="number"
                                 placeholder="0"
-                                value={qtt}
+                                value={qttAdd}
                                 min={0}
-                                onChange={(e) => setQtt(e.target.value)}
+                                onChange={(e) => setQttAdd(e.target.value)}
+                            />
+                        </div>
+                    </div>
+                    <div className="fo-filters">
+                        <div className="fo-filter">
+                            <label className="fo-filter__label">Catégorie à déduire</label>
+                            <select
+                                value={categoryIdRemove}
+                                onChange={(e) => setCategoryIdRemove(e.target.value)}
+                                disabled={isLoading}
+                            >
+                                <option value="">
+                                    {isLoading ? "Chargement…" : "Sélectionnez une catégorie"}
+                                </option>
+                                {selectableCategories.map((category, index) => (
+                                    <option key={`${category.id}-${index}`} value={category.id}>
+                                        {category.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="fo-filter">
+                            <label className="fo-filter__label">Quantité</label>
+                            <input
+                                type="number"
+                                placeholder="0"
+                                value={qttRemove}
+                                min={0}
+                                onChange={(e) => setQttRemove(e.target.value)}
                             />
                         </div>
                     </div>
@@ -106,7 +137,6 @@ function RemoveStock() {
                             type="button"
                             className="fo-btn--primary"
                             onClick={removeStock}
-                            disabled={isSubmitting || !categoryId || !qtt}
                         >
                             {isSubmitting ? "Traitement…" : "Valider"}
                         </button>
