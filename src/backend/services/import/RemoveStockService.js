@@ -10,10 +10,10 @@ export async function removeStockByCategory(categoryId, quantityToRemove) {
     let total = 0
     const stockApi = new StockAvailable({}, false)
     console.log("Produits: ")
-    console.log()
+    console.log(productsFilter)
 
     for (const product of productsFilter) {
-        const prodStockAvailable = product.associations?.stockAvailable ?? []
+        const prodStockAvailable = product.associations?.stockAvailables ?? []
         console.log("Produit stock available")
         console.log(prodStockAvailable)
         const haveDeclinaison = product.associations?.combinations?.length > 0
@@ -29,7 +29,7 @@ export async function removeStockByCategory(categoryId, quantityToRemove) {
             } else {
                 const movement = StockMvt.fromData({
                     idStock: stock.id,
-                    idProduct: products.id,
+                    idProduct: product.id,
                     idProductAttribute: psa.idProductAttribute,
                     physicalQuantity: delta,
                     sign: -1,
